@@ -101,12 +101,22 @@ const AdminDashboard = () => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append('title', postForm.title);
+      formData.append('content', postForm.content);
+      if (postForm.image) {
+        formData.append('image', postForm.image);
+      }
+      
       await axios.post(
         `${API}/posts?admin_id=${admin.id}&mosque_id=${admin.mosque_id}`,
-        postForm
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        }
       );
       toast.success('Post created! Awaiting superadmin approval.');
-      setPostForm({ title: '', content: '' });
+      setPostForm({ title: '', content: '', image: null });
     } catch (error) {
       toast.error('Failed to create post');
     }
