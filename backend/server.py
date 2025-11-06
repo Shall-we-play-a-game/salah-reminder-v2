@@ -347,6 +347,53 @@ async def update_user_status(user_id: str, status: str):
     
     return {"message": "Status updated successfully"}
 
+@api_router.post("/users/{user_id}/favorites/{mosque_id}")
+async def add_favorite_mosque(user_id: str, mosque_id: str):
+    # Check if mosque exists
+    mosque = await db.mosques.find_one({"id": mosque_id})
+    if not mosque:
+        raise HTTPException(status_code=404, detail="Mosque not found")
+    
+    # Add to favorites
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$addToSet": {"favorite_mosques": mosque_id}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"message": "Mosque added to favorites"}
+
+@api_router.delete("/users/{user_id}/favorites/{mosque_id}")
+async def remove_favorite_mosque(user_id: str, mosque_id: str):
+    result = await db.users.update_one(
+        {"id": user_id},
+        {"$pull": {"favorite_mosques": mosque_id}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"message": "Mosque removed from favorites"}
+
+@api_router.get("/users/{user_id}/favorites", response_model=List[Mosque])
+async def get_favorite_mosques(user_id: str):
+    user = await db.users.find_one({"id": user_id}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    favorite_ids = user.get("favorite_mosques", [])
+    if not favorite_ids:
+        return []
+    
+    mosques = await db.mosques.find({"id": {"$in": favorite_ids}}, {"_id": 0}).to_list(1000)
+    for mosque in mosques:
+        if isinstance(mosque['created_at'], str):
+            mosque['created_at'] = datetime.fromisoformat(mosque['created_at'])
+    
+    return mosques
+
 # ========== PRAYER TIMES ROUTES ==========
 
 @api_router.get("/prayer-times/{mosque_id}")
