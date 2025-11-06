@@ -133,6 +133,36 @@ const HomePage = () => {
     }
   };
 
+  const fetchFavoriteMosques = async (userId) => {
+    try {
+      const response = await axios.get(`${API}/users/${userId}/favorites`);
+      setFavoriteMosques(response.data.map(m => m.id));
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+    }
+  };
+
+  const toggleFavorite = async (mosqueId) => {
+    if (!user) {
+      toast.error('Please login to add favorites');
+      return;
+    }
+
+    try {
+      if (favoriteMosques.includes(mosqueId)) {
+        await axios.delete(`${API}/users/${user.id}/favorites/${mosqueId}`);
+        setFavoriteMosques(favoriteMosques.filter(id => id !== mosqueId));
+        toast.success('Removed from favorites');
+      } else {
+        await axios.post(`${API}/users/${user.id}/favorites/${mosqueId}`);
+        setFavoriteMosques([...favoriteMosques, mosqueId]);
+        toast.success('Added to favorites');
+      }
+    } catch (error) {
+      toast.error('Failed to update favorites');
+    }
+  };
+
   const loadAlarms = () => {
     const saved = localStorage.getItem(`alarms_${selectedMosque}`);
     if (saved) {
