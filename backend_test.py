@@ -134,20 +134,28 @@ class SalahReminderAPITester:
 
     def test_regular_user_registration(self):
         """Test regular user registration"""
-        success, response = self.run_test(
-            "Regular User Registration",
-            "POST",
-            "auth/register",
-            200,
-            data={
-                "email": f"testuser_{datetime.now().strftime('%H%M%S')}@test.com",
-                "password": "testpass123",
-                "role": "user"
+        # Use form data like the admin registration
+        try:
+            data = {
+                'email': f"testuser_{datetime.now().strftime('%H%M%S')}@test.com",
+                'password': 'testpass123',
+                'role': 'user'
             }
-        )
-        if success:
-            self.regular_user = response
-        return success
+            
+            success, response = self.run_test(
+                "Regular User Registration",
+                "POST",
+                "auth/register",
+                200,
+                data=data,
+                files={}  # Empty files dict to trigger form data
+            )
+            if success:
+                self.regular_user = response
+            return success
+        except Exception as e:
+            self.log_test("Regular User Registration", False, f"Exception: {str(e)}")
+            return False
 
     def test_admin_registration(self):
         """Test admin registration with ID proof"""
