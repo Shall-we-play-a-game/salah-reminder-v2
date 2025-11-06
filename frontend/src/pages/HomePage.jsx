@@ -180,6 +180,25 @@ const HomePage = () => {
     }
   };
 
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem('darkMode', newMode);
+    if (newMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  const changeRingtone = (ringtone) => {
+    setSelectedRingtone(ringtone);
+    localStorage.setItem('ringtone', ringtone);
+    audio.src = ringtones[ringtone];
+    // Play preview
+    audio.play().catch(err => console.log('Audio play failed:', err));
+  };
+
   const loadAlarms = () => {
     const saved = localStorage.getItem(`alarms_${selectedMosque}`);
     if (saved) {
