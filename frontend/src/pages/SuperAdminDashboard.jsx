@@ -219,9 +219,10 @@ const SuperAdminDashboard = () => {
 
       {/* ID Proof Dialog */}
       <Dialog open={showIdProof} onOpenChange={setShowIdProof}>
-        <DialogContent className="sm:max-w-lg" data-testid="id-proof-dialog">
+        <DialogContent className="sm:max-w-lg" data-testid="id-proof-dialog" aria-describedby="id-proof-description">
           <DialogHeader>
             <DialogTitle>ID Proof</DialogTitle>
+            <p id="id-proof-description" className="sr-only">View admin ID proof document</p>
           </DialogHeader>
           {selectedIdProof && (
             <div className="mt-4">
