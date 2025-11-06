@@ -31,6 +31,9 @@ const HomePage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [favoriteMosques, setFavoriteMosques] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+  const [selectedRingtone, setSelectedRingtone] = useState('adhan');
+  const [showSettings, setShowSettings] = useState(false);
   const [registerForm, setRegisterForm] = useState({
     email: '',
     password: '',
