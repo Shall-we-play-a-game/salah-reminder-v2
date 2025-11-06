@@ -205,7 +205,20 @@ const HomePage = () => {
       } else {
         toast.success('Registration successful! Please login.');
       }
-      setAuthMode('login');
+      
+      // Reset form
+      setRegisterForm({
+        email: '',
+        password: '',
+        role: 'user',
+        mosque_id: '',
+        id_proof: null
+      });
+      
+      // Switch to login mode after a brief delay
+      setTimeout(() => {
+        setAuthMode('login');
+      }, 500);
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Registration failed');
     }
