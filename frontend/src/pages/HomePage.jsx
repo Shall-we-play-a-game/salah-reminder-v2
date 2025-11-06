@@ -513,7 +513,7 @@ const HomePage = () => {
 
       {/* Auth Dialog */}
       <Dialog open={showAuth} onOpenChange={setShowAuth}>
-        <DialogContent className="sm:max-w-md" data-testid="auth-dialog" aria-describedby="auth-description">
+        <DialogContent className="sm:max-w-2xl" data-testid="auth-dialog" aria-describedby="auth-description">
           <DialogHeader>
             <DialogTitle className="islamic-heading text-2xl text-emerald-800">
               {authMode === 'login' ? 'Login' : 'Register'}
