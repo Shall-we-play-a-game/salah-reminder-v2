@@ -34,8 +34,18 @@ const HomePage = () => {
     email: '',
     password: '',
     role: 'user',
-    mosque_id: '',
-    id_proof: null
+    mosque_name: '',
+    mosque_phone: '',
+    mosque_alternate_phone: '',
+    mosque_address: '',
+    mosque_district: '',
+    mosque_city: '',
+    mosque_state: '',
+    mosque_country: '',
+    mosque_latitude: '',
+    mosque_longitude: '',
+    id_proof: null,
+    donation_qr: null
   });
 
   // Audio for alarm - use data URL for reliability
