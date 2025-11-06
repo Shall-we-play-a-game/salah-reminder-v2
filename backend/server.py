@@ -50,8 +50,12 @@ class Mosque(BaseModel):
 
 class MosqueCreate(BaseModel):
     name: str
+    phone: str
+    alternate_phone: Optional[str] = None
     address: str
+    district: str
     city: str
+    state: str
     country: str
     latitude: Optional[float] = None
     longitude: Optional[float] = None
