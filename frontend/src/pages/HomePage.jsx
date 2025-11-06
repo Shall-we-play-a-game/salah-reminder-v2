@@ -512,54 +512,90 @@ const HomePage = () => {
           </div>
         )}
 
-        {/* Donation Section */}
-        {selectedMosqueData?.donation_qr_code && (
-          <Card className="prayer-card" data-testid="donation-card">
+        {/* Donation & Feed Tabs */}
+        {(selectedMosqueData?.donation_qr_code || posts.length > 0) && (
+          <Card className="prayer-card" data-testid="donation-feed-tabs">
             <CardContent className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <Heart className="w-6 h-6 text-emerald-600" />
-                <h2 className="text-xl font-semibold islamic-heading text-emerald-800">Support Our Mosque</h2>
-              </div>
-              <div className="flex flex-col items-center space-y-4">
-                <p className="text-gray-600 text-center">
-                  Scan the QR code below to make a donation to {selectedMosqueData.name}
-                </p>
-                <div className="bg-white p-4 rounded-lg shadow-md">
-                  <img
-                    src={`data:image/png;base64,${selectedMosqueData.donation_qr_code}`}
-                    alt="Donation QR Code"
-                    className="w-64 h-64 object-contain"
-                    data-testid="donation-qr-code"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+              <Tabs defaultValue="donation" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="donation" className="flex items-center space-x-2" data-testid="donation-tab">
+                    <Heart className="w-4 h-4" />
+                    <span>Donation</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="feed" className="flex items-center space-x-2" data-testid="feed-tab">
+                    <Calendar className="w-4 h-4" />
+                    <span>Community Feed</span>
+                  </TabsTrigger>
+                </TabsList>
 
-        {/* Feed Section */}
-        {posts.length > 0 && (
-          <Card className="prayer-card" data-testid="feed-section">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <Calendar className="w-6 h-6 text-emerald-600" />
-                <h2 className="text-xl font-semibold islamic-heading text-emerald-800">Community Feed</h2>
-              </div>
-              <div className="space-y-4">
-                {posts.map((post) => (
-                  <div
-                    key={post.id}
-                    className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-lg border border-emerald-200"
-                    data-testid={`post-${post.id}`}
-                  >
-                    <h3 className="font-semibold text-emerald-800 mb-2">{post.title}</h3>
-                    <p className="text-gray-700 text-sm">{post.content}</p>
-                    <p className="text-xs text-gray-500 mt-2">
-                      {new Date(post.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                {/* Donation Tab Content */}
+                <TabsContent value="donation" data-testid="donation-content">
+                  {selectedMosqueData?.donation_qr_code ? (
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <Heart className="w-6 h-6 text-emerald-600" />
+                        <h2 className="text-xl font-semibold islamic-heading text-emerald-800 dark:text-emerald-400">
+                          Support {selectedMosqueData.name}
+                        </h2>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 text-center">
+                        Scan the QR code below to make a donation
+                      </p>
+                      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                        <img
+                          src={`data:image/png;base64,${selectedMosqueData.donation_qr_code}`}
+                          alt="Donation QR Code"
+                          className="w-64 h-64 object-contain"
+                          data-testid="donation-qr-code"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                      <Heart className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <p>No donation QR code available for this mosque</p>
+                    </div>
+                  )}
+                </TabsContent>
+
+                {/* Feed Tab Content */}
+                <TabsContent value="feed" data-testid="feed-content">
+                  {posts.length > 0 ? (
+                    <div className="space-y-4">
+                      {posts.map((post) => (
+                        <div
+                          key={post.id}
+                          className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700"
+                          data-testid={`post-${post.id}`}
+                        >
+                          <h3 className="font-semibold text-emerald-800 dark:text-emerald-400 mb-2">
+                            {post.title}
+                          </h3>
+                          {post.image && (
+                            <div className="my-3">
+                              <img
+                                src={`data:image/png;base64,${post.image}`}
+                                alt={post.title}
+                                className="w-full max-h-96 object-cover rounded-lg"
+                                data-testid={`post-image-${post.id}`}
+                              />
+                            </div>
+                          )}
+                          <p className="text-gray-700 dark:text-gray-300 text-sm">{post.content}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            {new Date(post.created_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                      <Calendar className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                      <p>No community posts available yet</p>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </CardContent>
           </Card>
         )}
