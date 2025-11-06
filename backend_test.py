@@ -40,7 +40,7 @@ class SalahReminderAPITester:
         })
         return success
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, files=None, params=None):
+    def run_test(self, name, method, endpoint, expected_status, data=None, files=None, params=None, use_form=False):
         """Run a single API test"""
         url = f"{self.api_url}/{endpoint}"
         headers = {}
@@ -49,7 +49,7 @@ class SalahReminderAPITester:
             if method == 'GET':
                 response = requests.get(url, headers=headers, params=params, timeout=10)
             elif method == 'POST':
-                if files:
+                if files is not None or use_form:
                     response = requests.post(url, data=data, files=files, headers=headers, timeout=10)
                 else:
                     headers['Content-Type'] = 'application/json'
