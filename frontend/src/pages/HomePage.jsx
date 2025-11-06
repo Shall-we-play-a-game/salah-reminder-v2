@@ -378,9 +378,26 @@ const HomePage = () => {
         {/* Mosque Selection */}
         <Card className="prayer-card" data-testid="mosque-selection-card">
           <CardContent className="p-6">
-            <div className="flex items-center space-x-3 mb-4">
-              <MapPin className="w-6 h-6 text-emerald-600" />
-              <h2 className="text-xl font-semibold islamic-heading text-emerald-800">Select Mosque</h2>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-6 h-6 text-emerald-600" />
+                <h2 className="text-xl font-semibold islamic-heading text-emerald-800">Select Mosque</h2>
+              </div>
+              {selectedMosque && user && user.role === 'user' && (
+                <button
+                  onClick={() => toggleFavorite(selectedMosque)}
+                  className="p-2 rounded-full hover:bg-emerald-100 transition-colors"
+                  data-testid="favorite-mosque-btn"
+                >
+                  <Star
+                    className={`w-6 h-6 ${
+                      favoriteMosques.includes(selectedMosque)
+                        ? 'fill-yellow-400 text-yellow-400'
+                        : 'text-gray-400'
+                    }`}
+                  />
+                </button>
+              )}
             </div>
             <Select value={selectedMosque} onValueChange={setSelectedMosque}>
               <SelectTrigger className="w-full" data-testid="mosque-select">
@@ -395,10 +412,20 @@ const HomePage = () => {
               </SelectContent>
             </Select>
             {selectedMosqueData && (
-              <p className="mt-3 text-sm text-gray-600">
-                <MapPin className="w-4 h-4 inline mr-1" />
-                {selectedMosqueData.address}, {selectedMosqueData.city}
-              </p>
+              <div className="mt-3 space-y-1">
+                <p className="text-sm text-gray-600">
+                  <MapPin className="w-4 h-4 inline mr-1" />
+                  {selectedMosqueData.address}, {selectedMosqueData.district}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {selectedMosqueData.city}, {selectedMosqueData.state}, {selectedMosqueData.country}
+                </p>
+                {selectedMosqueData.phone && (
+                  <p className="text-sm text-emerald-600 font-medium">
+                    📞 {selectedMosqueData.phone}
+                  </p>
+                )}
+              </div>
             )}
           </CardContent>
         </Card>
