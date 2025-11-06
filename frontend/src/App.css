@@ -10,6 +10,53 @@ body {
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #e8f0e8 100%);
   min-height: 100vh;
+  transition: background 0.3s ease;
+}
+
+.dark body {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+.dark .prayer-card {
+  background: #2d3748;
+  border: 1px solid #4a5568;
+}
+
+.dark .glass-card {
+  background: rgba(45, 55, 72, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .text-gray-600 {
+  color: #cbd5e0;
+}
+
+.dark .text-gray-700 {
+  color: #e2e8f0;
+}
+
+.dark .text-emerald-800 {
+  color: #6ee7b7;
+}
+
+.dark .text-emerald-700 {
+  color: #34d399;
+}
+
+.dark .bg-emerald-50 {
+  background-color: #1a3a30;
+}
+
+.dark .bg-teal-50 {
+  background-color: #1a3a3a;
+}
+
+.dark .border-emerald-200 {
+  border-color: #2d5a4d;
 }
 
 .islamic-heading {
