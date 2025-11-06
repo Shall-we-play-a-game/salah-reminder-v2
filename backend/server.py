@@ -191,9 +191,24 @@ async def upload_donation_qr(mosque_id: str, file: UploadFile = File(...)):
 # ========== USER/AUTH ROUTES ==========
 
 @api_router.post("/auth/register")
-async def register_user(email: EmailStr = Form(...), password: str = Form(...), 
-                        role: str = Form(...), mosque_id: Optional[str] = Form(None),
-                        id_proof: Optional[UploadFile] = File(None)):
+async def register_user(
+    email: EmailStr = Form(...), 
+    password: str = Form(...), 
+    role: str = Form(...),
+    # Admin fields
+    mosque_name: Optional[str] = Form(None),
+    mosque_phone: Optional[str] = Form(None),
+    mosque_alternate_phone: Optional[str] = Form(None),
+    mosque_address: Optional[str] = Form(None),
+    mosque_district: Optional[str] = Form(None),
+    mosque_city: Optional[str] = Form(None),
+    mosque_state: Optional[str] = Form(None),
+    mosque_country: Optional[str] = Form(None),
+    mosque_latitude: Optional[float] = Form(None),
+    mosque_longitude: Optional[float] = Form(None),
+    id_proof: Optional[UploadFile] = File(None),
+    donation_qr: Optional[UploadFile] = File(None)
+):
     # Check if user exists
     existing_user = await get_user_by_email(email)
     if existing_user:
@@ -202,21 +217,64 @@ async def register_user(email: EmailStr = Form(...), password: str = Form(...),
     # Hash password
     password_hash = hash_password(password)
     
-    # Handle ID proof for admins
-    id_proof_base64 = None
-    if role == "admin" and id_proof:
-        contents = await id_proof.read()
-        id_proof_base64 = base64.b64encode(contents).decode('utf-8')
+    mosque_id = None
     
-    # Create user
-    user_obj = User(
-        email=email,
-        password_hash=password_hash,
-        role=role,
-        mosque_id=mosque_id,
-        id_proof=id_proof_base64,
-        status="pending" if role == "admin" else "approved"
-    )
+    # Handle admin registration with mosque creation
+    if role == "admin":
+        if not all([mosque_name, mosque_phone, mosque_address, mosque_district, 
+                   mosque_city, mosque_state, mosque_country]):
+            raise HTTPException(status_code=400, detail="All mosque fields are required for admin registration")
+        
+        # Handle ID proof
+        if not id_proof:
+            raise HTTPException(status_code=400, detail="ID proof is required for admin registration")
+        
+        id_proof_contents = await id_proof.read()
+        id_proof_base64 = base64.b64encode(id_proof_contents).decode('utf-8')
+        
+        # Handle donation QR
+        donation_qr_base64 = None
+        if donation_qr:
+            qr_contents = await donation_qr.read()
+            donation_qr_base64 = base64.b64encode(qr_contents).decode('utf-8')
+        
+        # Create mosque
+        mosque_obj = Mosque(
+            name=mosque_name,
+            phone=mosque_phone,
+            alternate_phone=mosque_alternate_phone,
+            address=mosque_address,
+            district=mosque_district,
+            city=mosque_city,
+            state=mosque_state,
+            country=mosque_country,
+            latitude=mosque_latitude,
+            longitude=mosque_longitude,
+            donation_qr_code=donation_qr_base64
+        )
+        
+        mosque_doc = mosque_obj.model_dump()
+        mosque_doc['created_at'] = mosque_doc['created_at'].isoformat()
+        await db.mosques.insert_one(mosque_doc)
+        mosque_id = mosque_obj.id
+        
+        # Create admin user
+        user_obj = User(
+            email=email,
+            password_hash=password_hash,
+            role=role,
+            mosque_id=mosque_id,
+            id_proof=id_proof_base64,
+            status="pending"
+        )
+    else:
+        # Regular user
+        user_obj = User(
+            email=email,
+            password_hash=password_hash,
+            role=role,
+            status="approved"
+        )
     
     doc = user_obj.model_dump()
     doc['created_at'] = doc['created_at'].isoformat()
