@@ -61,10 +61,6 @@ const HomePage = () => {
     soft: 'https://www.soundjay.com/misc/sounds/bell-ringing-04.mp3'
   };
   const [audio] = useState(() => new Audio(ringtones.adhan));
-    // Use a simple beep sound
-    audioElement.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQwOVqzl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBQ==';
-    return audioElement;
-  });
 
   useEffect(() => {
     fetchMosques();
