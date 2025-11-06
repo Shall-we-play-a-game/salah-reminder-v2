@@ -49,6 +49,12 @@ const HomePage = () => {
   useEffect(() => {
     fetchMosques();
     checkNotificationPermission();
+    
+    // Load user from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
   useEffect(() => {
