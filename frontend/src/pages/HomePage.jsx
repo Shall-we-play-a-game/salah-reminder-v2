@@ -397,11 +397,14 @@ const HomePage = () => {
 
       {/* Auth Dialog */}
       <Dialog open={showAuth} onOpenChange={setShowAuth}>
-        <DialogContent className="sm:max-w-md" data-testid="auth-dialog">
+        <DialogContent className="sm:max-w-md" data-testid="auth-dialog" aria-describedby="auth-description">
           <DialogHeader>
             <DialogTitle className="islamic-heading text-2xl text-emerald-800">
               {authMode === 'login' ? 'Login' : 'Register'}
             </DialogTitle>
+            <p id="auth-description" className="sr-only">
+              {authMode === 'login' ? 'Login to your account' : 'Register a new account'}
+            </p>
           </DialogHeader>
 
           {authMode === 'login' ? (
