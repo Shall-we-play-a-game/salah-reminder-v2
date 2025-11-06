@@ -160,6 +160,7 @@ const HomePage = () => {
     try {
       const response = await axios.post(`${API}/auth/login`, loginForm);
       setUser(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
       toast.success('Logged in successfully');
       setShowAuth(false);
       
