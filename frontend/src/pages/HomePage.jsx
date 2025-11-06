@@ -818,6 +818,65 @@ const HomePage = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Settings Dialog */}
+      <Dialog open={showSettings} onOpenChange={setShowSettings}>
+        <DialogContent className="sm:max-w-md" data-testid="settings-dialog" aria-describedby="settings-description">
+          <DialogHeader>
+            <DialogTitle className="islamic-heading text-2xl text-emerald-800 dark:text-emerald-400">
+              <Music className="w-6 h-6 inline mr-2" />
+              Ringtone Settings
+            </DialogTitle>
+            <p id="settings-description" className="sr-only">Choose your prayer alarm ringtone</p>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <p className="text-sm text-gray-600 dark:text-gray-400">Select a ringtone for prayer alarms:</p>
+            
+            <div className="space-y-2">
+              {Object.keys(ringtones).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => changeRingtone(key)}
+                  className={`w-full p-4 rounded-lg border-2 transition-all flex items-center justify-between ${
+                    selectedRingtone === key
+                      ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600'
+                  }`}
+                  data-testid={`ringtone-${key}`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <Bell className={`w-5 h-5 ${selectedRingtone === key ? 'text-emerald-600' : 'text-gray-500'}`} />
+                    <div className="text-left">
+                      <p className={`font-medium capitalize ${
+                        selectedRingtone === key ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-700 dark:text-gray-300'
+                      }`}>
+                        {key === 'adhan' ? 'Adhan Call' : key.charAt(0).toUpperCase() + key.slice(1)}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-500">
+                        {key === 'adhan' && 'Traditional call to prayer'}
+                        {key === 'bell' && 'Classic bell sound'}
+                        {key === 'chime' && 'Gentle chime tone'}
+                        {key === 'gong' && 'Deep gong sound'}
+                        {key === 'soft' && 'Soft bell ring'}
+                      </p>
+                    </div>
+                  </div>
+                  {selectedRingtone === key && (
+                    <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                  )}
+                </button>
+              ))}
+            </div>
+            
+            <div className="pt-4 border-t dark:border-gray-700">
+              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                Tap a ringtone to preview and select
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
