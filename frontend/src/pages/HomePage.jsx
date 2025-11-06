@@ -356,9 +356,26 @@ const HomePage = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleDarkMode}
+                data-testid="theme-toggle"
+                className="rounded-full"
+              >
+                {darkMode ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-600" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowSettings(true)}
+                data-testid="settings-btn"
+              >
+                <Music className="w-5 h-5" />
+              </Button>
               {user ? (
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-emerald-700">{user.email}</span>
+                  <span className="text-sm text-emerald-700 dark:text-emerald-400">{user.email}</span>
                   <Button variant="ghost" size="sm" onClick={() => {
                     setUser(null);
                     localStorage.removeItem('user');
