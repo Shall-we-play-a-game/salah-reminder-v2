@@ -297,6 +297,21 @@ const AdminDashboard = () => {
                   data-testid="post-content-input"
                 />
               </div>
+              <div>
+                <Label htmlFor="post-image">Image (Optional)</Label>
+                <Input
+                  id="post-image"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setPostForm({ ...postForm, image: e.target.files[0] })}
+                  data-testid="post-image-input"
+                />
+                {postForm.image && (
+                  <p className="text-sm text-emerald-600 mt-2">
+                    Selected: {postForm.image.name}
+                  </p>
+                )}
+              </div>
               <Button type="submit" className="green-gradient text-white" data-testid="create-post-btn">
                 Create Post
               </Button>
