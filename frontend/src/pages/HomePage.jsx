@@ -75,6 +75,18 @@ const HomePage = () => {
         fetchFavoriteMosques(userData.id);
       }
     }
+    
+    // Load dark mode preference
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(savedDarkMode);
+    if (savedDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    // Load ringtone preference
+    const savedRingtone = localStorage.getItem('ringtone') || 'adhan';
+    setSelectedRingtone(savedRingtone);
+    audio.src = ringtones[savedRingtone];
   }, []);
 
   useEffect(() => {
