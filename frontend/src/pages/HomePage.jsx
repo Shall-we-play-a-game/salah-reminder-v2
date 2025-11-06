@@ -200,9 +200,30 @@ const HomePage = () => {
       formData.append('role', registerForm.role);
       
       if (registerForm.role === 'admin') {
-        formData.append('mosque_id', registerForm.mosque_id);
+        // Mosque details
+        formData.append('mosque_name', registerForm.mosque_name);
+        formData.append('mosque_phone', registerForm.mosque_phone);
+        if (registerForm.mosque_alternate_phone) {
+          formData.append('mosque_alternate_phone', registerForm.mosque_alternate_phone);
+        }
+        formData.append('mosque_address', registerForm.mosque_address);
+        formData.append('mosque_district', registerForm.mosque_district);
+        formData.append('mosque_city', registerForm.mosque_city);
+        formData.append('mosque_state', registerForm.mosque_state);
+        formData.append('mosque_country', registerForm.mosque_country);
+        if (registerForm.mosque_latitude) {
+          formData.append('mosque_latitude', registerForm.mosque_latitude);
+        }
+        if (registerForm.mosque_longitude) {
+          formData.append('mosque_longitude', registerForm.mosque_longitude);
+        }
+        
+        // ID proof and QR code
         if (registerForm.id_proof) {
           formData.append('id_proof', registerForm.id_proof);
+        }
+        if (registerForm.donation_qr) {
+          formData.append('donation_qr', registerForm.donation_qr);
         }
       }
 
@@ -211,7 +232,7 @@ const HomePage = () => {
       });
       
       if (registerForm.role === 'admin') {
-        toast.success('Registration submitted! Awaiting admin approval.');
+        toast.success('Registration submitted! Awaiting superadmin approval.');
       } else {
         toast.success('Registration successful! Please login.');
       }
@@ -221,8 +242,18 @@ const HomePage = () => {
         email: '',
         password: '',
         role: 'user',
-        mosque_id: '',
-        id_proof: null
+        mosque_name: '',
+        mosque_phone: '',
+        mosque_alternate_phone: '',
+        mosque_address: '',
+        mosque_district: '',
+        mosque_city: '',
+        mosque_state: '',
+        mosque_country: '',
+        mosque_latitude: '',
+        mosque_longitude: '',
+        id_proof: null,
+        donation_qr: null
       });
       
       // Switch to login mode after a brief delay
