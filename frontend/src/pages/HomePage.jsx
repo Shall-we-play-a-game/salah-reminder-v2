@@ -259,7 +259,10 @@ const HomePage = () => {
               {user ? (
                 <div className="space-y-2">
                   <p className="text-sm text-emerald-700">{user.email}</p>
-                  <Button variant="ghost" size="sm" onClick={() => setUser(null)} className="w-full">
+                  <Button variant="ghost" size="sm" onClick={() => {
+                    setUser(null);
+                    localStorage.removeItem('user');
+                  }} className="w-full">
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout
                   </Button>
