@@ -482,17 +482,23 @@ app.post('/api/prayer-times', async (req, res) => {
 
 // ========== POSTS/FEED ROUTES ==========
 
-app.post('/api/posts', async (req, res) => {
+app.post('/api/posts', upload.single('image'), async (req, res) => {
   try {
     const { admin_id, mosque_id } = req.query;
     const { title, content } = req.body;
+    
+    let imageBase64 = null;
+    if (req.file) {
+      imageBase64 = req.file.buffer.toString('base64');
+    }
     
     const post = new Post({
       id: generateId(),
       mosque_id,
       admin_id,
       title,
-      content
+      content,
+      image: imageBase64
     });
     
     await post.save();
