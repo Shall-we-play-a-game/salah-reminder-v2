@@ -38,8 +38,13 @@ const HomePage = () => {
     id_proof: null
   });
 
-  // Audio for alarm
-  const [audio] = useState(new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3'));
+  // Audio for alarm - use data URL for reliability
+  const [audio] = useState(() => {
+    const audioElement = new Audio();
+    // Use a simple beep sound
+    audioElement.src = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQwOVqzl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWshBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBit83vLTgjMGHm7A7+OZRQ0PVqvl6bVeGAg+lt7xyWwhBQ==';
+    return audioElement;
+  });
 
   useEffect(() => {
     fetchMosques();
