@@ -26,7 +26,8 @@ const AdminDashboard = () => {
   });
   const [postForm, setPostForm] = useState({
     title: '',
-    content: ''
+    content: '',
+    image: null
   });
   const [qrFile, setQrFile] = useState(null);
 
