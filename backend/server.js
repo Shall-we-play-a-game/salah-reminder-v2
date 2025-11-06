@@ -85,6 +85,7 @@ const postSchema = new mongoose.Schema({
   admin_id: { type: String, required: true },
   title: { type: String, required: true },
   content: { type: String, required: true },
+  image: String,  // base64 encoded image
   status: { type: String, default: 'pending', enum: ['pending', 'approved', 'rejected'] },
   created_at: { type: Date, default: Date.now }
 });
