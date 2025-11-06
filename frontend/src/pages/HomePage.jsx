@@ -228,7 +228,10 @@ const HomePage = () => {
               {user ? (
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-emerald-700">{user.email}</span>
-                  <Button variant="ghost" size="sm" onClick={() => setUser(null)} data-testid="logout-btn">
+                  <Button variant="ghost" size="sm" onClick={() => {
+                    setUser(null);
+                    localStorage.removeItem('user');
+                  }} data-testid="logout-btn">
                     <LogOut className="w-4 h-4" />
                   </Button>
                 </div>
