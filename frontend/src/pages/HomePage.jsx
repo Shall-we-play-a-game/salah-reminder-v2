@@ -64,7 +64,11 @@ const HomePage = () => {
     // Load user from localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const userData = JSON.parse(storedUser);
+      setUser(userData);
+      if (userData.role === 'user') {
+        fetchFavoriteMosques(userData.id);
+      }
     }
   }, []);
 
