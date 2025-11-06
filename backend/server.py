@@ -68,6 +68,7 @@ class User(BaseModel):
     role: str  # 'user', 'admin', 'superadmin'
     mosque_id: Optional[str] = None
     id_proof: Optional[str] = None  # base64 encoded for admins
+    favorite_mosques: List[str] = Field(default_factory=list)  # list of mosque IDs
     status: str = "pending"  # 'pending', 'approved', 'rejected'
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
