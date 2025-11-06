@@ -36,8 +36,12 @@ class Mosque(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
+    phone: str
+    alternate_phone: Optional[str] = None
     address: str
+    district: str
     city: str
+    state: str
     country: str
     latitude: Optional[float] = None
     longitude: Optional[float] = None
