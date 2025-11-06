@@ -30,6 +30,7 @@ const HomePage = () => {
   const [user, setUser] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [favoriteMosques, setFavoriteMosques] = useState([]);
   const [registerForm, setRegisterForm] = useState({
     email: '',
     password: '',
