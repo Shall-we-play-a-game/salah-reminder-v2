@@ -53,6 +53,13 @@ const HomePage = () => {
   });
 
   // Ringtone options
+  const ringtones = {
+    adhan: 'https://www.soundjay.com/phone/sounds/phone-calling-1.mp3',
+    bell: 'https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3',
+    chime: 'https://www.soundjay.com/misc/sounds/magic-chime-01.mp3',
+    gong: 'https://www.soundjay.com/misc/sounds/gong-01.mp3',
+    soft: 'https://www.soundjay.com/misc/sounds/bell-ringing-04.mp3'
+  };
   const [audio] = useState(() => {
     const audioElement = new Audio();
     // Use a simple beep sound
