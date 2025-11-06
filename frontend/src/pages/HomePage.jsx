@@ -501,7 +501,7 @@ const HomePage = () => {
               </p>
             </form>
           ) : (
-            <form onSubmit={handleRegister} className="space-y-4">
+            <form onSubmit={handleRegister} className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
               <div>
                 <Label htmlFor="register-email">Email</Label>
                 <Input
@@ -541,34 +541,147 @@ const HomePage = () => {
               </div>
               {registerForm.role === 'admin' && (
                 <>
-                  <div>
-                    <Label htmlFor="register-mosque">Select Mosque</Label>
-                    <Select
-                      value={registerForm.mosque_id}
-                      onValueChange={(value) => setRegisterForm({ ...registerForm, mosque_id: value })}
-                    >
-                      <SelectTrigger data-testid="register-mosque-select">
-                        <SelectValue placeholder="Choose mosque" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {mosques.map((mosque) => (
-                          <SelectItem key={mosque.id} value={mosque.id}>
-                            {mosque.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                  <div className="pt-4 border-t">
+                    <h3 className="text-sm font-semibold text-emerald-800 mb-3">Mosque Details</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <Label htmlFor="mosque-name">Mosque Name *</Label>
+                        <Input
+                          id="mosque-name"
+                          value={registerForm.mosque_name}
+                          onChange={(e) => setRegisterForm({ ...registerForm, mosque_name: e.target.value })}
+                          required
+                          data-testid="register-mosque-name-input"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <Label htmlFor="mosque-phone">Phone *</Label>
+                          <Input
+                            id="mosque-phone"
+                            type="tel"
+                            value={registerForm.mosque_phone}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_phone: e.target.value })}
+                            required
+                            data-testid="register-mosque-phone-input"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="mosque-alt-phone">Alternate Phone</Label>
+                          <Input
+                            id="mosque-alt-phone"
+                            type="tel"
+                            value={registerForm.mosque_alternate_phone}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_alternate_phone: e.target.value })}
+                            data-testid="register-mosque-alt-phone-input"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="mosque-address">Full Address *</Label>
+                        <Input
+                          id="mosque-address"
+                          value={registerForm.mosque_address}
+                          onChange={(e) => setRegisterForm({ ...registerForm, mosque_address: e.target.value })}
+                          required
+                          data-testid="register-mosque-address-input"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <Label htmlFor="mosque-district">District *</Label>
+                          <Input
+                            id="mosque-district"
+                            value={registerForm.mosque_district}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_district: e.target.value })}
+                            required
+                            data-testid="register-mosque-district-input"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="mosque-city">City *</Label>
+                          <Input
+                            id="mosque-city"
+                            value={registerForm.mosque_city}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_city: e.target.value })}
+                            required
+                            data-testid="register-mosque-city-input"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <Label htmlFor="mosque-state">State *</Label>
+                          <Input
+                            id="mosque-state"
+                            value={registerForm.mosque_state}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_state: e.target.value })}
+                            required
+                            data-testid="register-mosque-state-input"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="mosque-country">Country *</Label>
+                          <Input
+                            id="mosque-country"
+                            value={registerForm.mosque_country}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_country: e.target.value })}
+                            required
+                            data-testid="register-mosque-country-input"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <Label htmlFor="mosque-lat">Latitude (Optional)</Label>
+                          <Input
+                            id="mosque-lat"
+                            type="number"
+                            step="any"
+                            value={registerForm.mosque_latitude}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_latitude: e.target.value })}
+                            data-testid="register-mosque-lat-input"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="mosque-lng">Longitude (Optional)</Label>
+                          <Input
+                            id="mosque-lng"
+                            type="number"
+                            step="any"
+                            value={registerForm.mosque_longitude}
+                            onChange={(e) => setRegisterForm({ ...registerForm, mosque_longitude: e.target.value })}
+                            data-testid="register-mosque-lng-input"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="id-proof">ID Proof (Required)</Label>
-                    <Input
-                      id="id-proof"
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => setRegisterForm({ ...registerForm, id_proof: e.target.files[0] })}
-                      required
-                      data-testid="register-id-proof-input"
-                    />
+                  <div className="pt-4 border-t">
+                    <h3 className="text-sm font-semibold text-emerald-800 mb-3">Documents</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <Label htmlFor="id-proof">ID Proof (Required) *</Label>
+                        <Input
+                          id="id-proof"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setRegisterForm({ ...registerForm, id_proof: e.target.files[0] })}
+                          required
+                          data-testid="register-id-proof-input"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="donation-qr">Donation QR Code (Optional)</Label>
+                        <Input
+                          id="donation-qr"
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setRegisterForm({ ...registerForm, donation_qr: e.target.files[0] })}
+                          data-testid="register-donation-qr-input"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
