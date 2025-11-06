@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-11-06T07:54:54.818352",
+  "total_tests": 17,
+  "passed_tests": 16,
+  "success_rate": 94.11764705882352,
+  "test_details": [
+    {
+      "name": "API Root",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Mosques",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque ID Retrieved",
+      "success": true,
+      "details": "ID: c387a819-bbcf-4327-80ed-bdfd35ae7189"
+    },
+    {
+      "name": "Get Single Mosque",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Superadmin Login",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Regular User Registration",
+      "success": false,
+      "details": "Status: 422 (Expected 200) | Error: [{'type': 'missing', 'loc': ['body', 'email'], 'msg': 'Field required', 'input': None, 'url': 'https://errors.pydantic.dev/2.12/v/missing'}, {'type': 'missing', 'loc': ['body', 'password'], 'msg': 'Field required', 'input': None, 'url': 'https://errors.pydantic.dev/2.12/v/missing'}, {'type': 'missing', 'loc': ['body', 'role'], 'msg': 'Field required', 'input': None, 'url': 'https://errors.pydantic.dev/2.12/v/missing'}]"
+    },
+    {
+      "name": "Admin Registration",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Pending Admins",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Approve Admin",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Admin Login",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Prayer Times API",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Set Manual Prayer Times",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Create Post",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Pending Posts",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Approve Post",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Approved Posts",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Upload Donation QR",
+      "success": true,
+      "details": "Status: 200"
+    }
+  ]
+}
