@@ -52,7 +52,7 @@ const HomePage = () => {
     donation_qr: null
   });
 
-  // Audio for alarm - use data URL for reliability
+  // Ringtone options
   const [audio] = useState(() => {
     const audioElement = new Audio();
     // Use a simple beep sound
