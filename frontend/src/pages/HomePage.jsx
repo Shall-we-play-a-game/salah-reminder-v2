@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Bell, MapPin, Heart, Calendar, User, LogOut, Menu, X, Star } from 'lucide-react';
+import { Bell, MapPin, Heart, Calendar, User, LogOut, Menu, X, Star, Moon, Sun, Music } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
