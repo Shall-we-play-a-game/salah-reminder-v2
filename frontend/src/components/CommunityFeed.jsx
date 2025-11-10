@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Calendar } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Calendar, Search } from 'lucide-react';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-11.preview.emergentagent.com';
 const API = `${BACKEND_URL}/api`;
@@ -10,13 +11,15 @@ const API = `${BACKEND_URL}/api`;
 export default function CommunityFeed({ selectedMosque, mosqueData }) {
   const [posts, setPosts] = useState([]);
   const [filterScope, setFilterScope] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('created_at');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (selectedMosque && mosqueData) {
       fetchPosts();
     }
-  }, [selectedMosque, filterScope, mosqueData]);
+  }, [selectedMosque, filterScope, searchQuery, sortBy, mosqueData]);
 
   const fetchPosts = async () => {
     if (!selectedMosque || !mosqueData) return;
