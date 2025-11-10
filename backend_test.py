@@ -586,6 +586,14 @@ class SalahReminderAPITester:
         # File upload tests
         self.test_upload_donation_qr()
         
+        # Search and Sort functionality tests
+        print("\n🔍 Testing Search and Sort Functionality")
+        print("-" * 30)
+        self.test_mosque_search_functionality()
+        self.test_mosque_sort_functionality()
+        self.test_posts_search_functionality()
+        self.test_posts_sort_functionality()
+        
         # Print summary
         print("\n" + "=" * 50)
         print(f"📊 Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
