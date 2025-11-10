@@ -533,11 +533,22 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
 
 app.get('/api/posts', async (req, res) => {
   try {
-    const { mosque_id, status } = req.query;
+    const { mosque_id, status, scope, city, country } = req.query;
     const query = {};
     
-    if (mosque_id) query.mosque_id = mosque_id;
     if (status) query.status = status;
+    if (scope) query.scope = scope;
+    if (city) query.city = city;
+    if (country) query.country = country;
+    
+    // For mosque-level posts
+    if (mosque_id) {
+      query.$or = [
+        { mosque_id },
+        { scope: 'city', city: req.query.city_for_mosque },
+        { scope: 'country', country: req.query.country_for_mosque }
+      ];
+    }
     
     const posts = await Post.find(query, { _id: 0, __v: 0 }).sort({ created_at: -1 });
     res.json(posts);
