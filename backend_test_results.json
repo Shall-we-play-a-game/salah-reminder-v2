@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-10T15:00:58.787273",
-  "total_tests": 17,
-  "passed_tests": 12,
-  "success_rate": 70.58823529411765,
+  "timestamp": "2025-11-10T15:01:41.368035",
+  "total_tests": 30,
+  "passed_tests": 23,
+  "success_rate": 76.66666666666667,
   "test_details": [
     {
       "name": "API Root",
@@ -88,6 +88,71 @@
       "name": "Upload Donation QR",
       "success": true,
       "details": "Status: 200"
+    },
+    {
+      "name": "Get All Mosques for Search Test",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque Search by Name",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque Search Functionality",
+      "success": true,
+      "details": "Found 2 results for 'Al-'"
+    },
+    {
+      "name": "Mosque Sort by Name ASC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Unsorted Mosques",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque Sort Functionality",
+      "success": false,
+      "details": "Sort parameters ignored - same order as unsorted"
+    },
+    {
+      "name": "Get All Approved Posts for Search Test",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Search by Title",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Search Functionality",
+      "success": false,
+      "details": "Search parameter ignored - returned all posts"
+    },
+    {
+      "name": "Posts Sort by Created Date DESC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Get Unsorted Posts",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Sort by Title ASC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Sort Functionality",
+      "success": true,
+      "details": "Posts correctly sorted by title"
     }
   ]
 }
