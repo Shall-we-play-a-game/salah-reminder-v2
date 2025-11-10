@@ -575,40 +575,7 @@ const HomePage = () => {
 
                 {/* Feed Tab Content */}
                 <TabsContent value="feed" data-testid="feed-content">
-                  {posts.length > 0 ? (
-                    <div className="space-y-4">
-                      {posts.map((post) => (
-                        <div
-                          key={post.id}
-                          className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700"
-                          data-testid={`post-${post.id}`}
-                        >
-                          <h3 className="font-semibold text-emerald-800 dark:text-emerald-400 mb-2">
-                            {post.title}
-                          </h3>
-                          {post.image && (
-                            <div className="my-3">
-                              <img
-                                src={`data:image/png;base64,${post.image}`}
-                                alt={post.title}
-                                className="w-full max-h-96 object-cover rounded-lg"
-                                data-testid={`post-image-${post.id}`}
-                              />
-                            </div>
-                          )}
-                          <p className="text-gray-700 dark:text-gray-300 text-sm">{post.content}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            {new Date(post.created_at).toLocaleDateString()}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                      <Calendar className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                      <p>No community posts available yet</p>
-                    </div>
-                  )}
+                  <CommunityFeed selectedMosque={selectedMosque} mosqueData={selectedMosqueData} />
                 </TabsContent>
               </Tabs>
             </CardContent>
