@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-06T07:55:42.517837",
+  "timestamp": "2025-11-10T15:00:58.787273",
   "total_tests": 17,
-  "passed_tests": 17,
-  "success_rate": 100.0,
+  "passed_tests": 12,
+  "success_rate": 70.58823529411765,
   "test_details": [
     {
       "name": "API Root",
@@ -36,8 +36,8 @@
     },
     {
       "name": "Admin Registration",
-      "success": true,
-      "details": "Status: 200"
+      "success": false,
+      "details": "Status: 400 (Expected 200) | Error: All mosque fields are required for admin registration"
     },
     {
       "name": "Get Pending Admins",
@@ -46,13 +46,13 @@
     },
     {
       "name": "Approve Admin",
-      "success": true,
-      "details": "Status: 200"
+      "success": false,
+      "details": "No admin ID available"
     },
     {
       "name": "Admin Login",
-      "success": true,
-      "details": "Status: 200"
+      "success": false,
+      "details": "No admin user available"
     },
     {
       "name": "Prayer Times API",
@@ -66,8 +66,8 @@
     },
     {
       "name": "Create Post",
-      "success": true,
-      "details": "Status: 200"
+      "success": false,
+      "details": "No admin ID or mosque ID available"
     },
     {
       "name": "Get Pending Posts",
@@ -76,8 +76,8 @@
     },
     {
       "name": "Approve Post",
-      "success": true,
-      "details": "Status: 200"
+      "success": false,
+      "details": "No post ID available"
     },
     {
       "name": "Get Approved Posts",
