@@ -119,6 +119,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "TESTED: Mosque search and sort functionality fully working. Search by name using regex (case-insensitive), tested with 'Al' (found 2 results), 'Islamic' (found 1 result), and non-existent terms (0 results). Sort by name ASC/DESC working correctly. Sort by city also tested and working. All query parameters (search, sortBy, sortOrder) properly implemented in Node.js backend."
+      - working: true
+        agent: "testing"
+        comment: "MVC REFACTORING VERIFIED: All mosque endpoints working perfectly after refactoring to MVC structure. GET /api/mosques with search and sort parameters fully functional. GET /api/mosques/:id working. POST /api/mosques working. POST /api/mosques/:id/donation-qr file upload working. Search by name and sort by city/name tested extensively."
         
   - task: "Post search and sort API"
     implemented: true
@@ -134,6 +137,45 @@ backend:
       - working: true
         agent: "testing"
         comment: "TESTED: Posts search and sort functionality fully working. Search by title using regex (case-insensitive), tested with 'Test' (found 3 results) and non-existent terms (0 results). Sort by created_at ASC/DESC working correctly, posts properly ordered by date. All query parameters (search, sortBy, sortOrder) properly implemented with status filtering."
+      - working: true
+        agent: "testing"
+        comment: "MVC REFACTORING VERIFIED: All post endpoints working perfectly after refactoring. GET /api/posts with advanced filtering (search, sort, scope, city, country, status) fully functional. POST /api/posts with file upload working. GET /api/posts/pending working. PATCH /api/posts/:id/status working. PATCH /api/posts/:id update working. DELETE /api/posts/:id working. Advanced filtering by scope and combined parameters tested successfully."
+
+  - task: "Auth Routes MVC"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/authRoutes.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "MVC REFACTORING VERIFIED: All auth endpoints working perfectly. POST /api/auth/register for both user and admin registration with file uploads working. POST /api/auth/login working. Admin registration requires all mosque fields and ID proof file upload - all validation working correctly."
+
+  - task: "User Routes MVC"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/userRoutes.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "MVC REFACTORING VERIFIED: All user endpoints working perfectly. GET /api/users/pending working. GET /api/users/:id/id-proof working. PATCH /api/users/:id/status working. POST /api/users/:id/favorites/:mosque_id working. DELETE /api/users/:id/favorites/:mosque_id working. GET /api/users/:id/favorites working. User favorites functionality fully tested."
+
+  - task: "Prayer Times Routes MVC"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/prayerTimeRoutes.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "MVC REFACTORING VERIFIED: All prayer time endpoints working perfectly. GET /api/prayer-times/:mosque_id with date parameter working (integrates with Aladhan API). POST /api/prayer-times for manual prayer time setting working. API integration and manual override functionality both tested successfully."
 
 frontend:
   - task: "Mosque search and sort UI"
