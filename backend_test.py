@@ -57,6 +57,8 @@ class SalahReminderAPITester:
             elif method == 'PATCH':
                 headers['Content-Type'] = 'application/json'
                 response = requests.patch(url, json=data, headers=headers, params=params, timeout=10)
+            elif method == 'DELETE':
+                response = requests.delete(url, headers=headers, params=params, timeout=10)
 
             success = response.status_code == expected_status
             details = f"Status: {response.status_code}"
