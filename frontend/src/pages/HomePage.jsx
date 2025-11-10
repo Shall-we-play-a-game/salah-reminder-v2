@@ -121,13 +121,20 @@ const HomePage = () => {
 
   const fetchMosques = async () => {
     try {
-      const response = await axios.get(`${API}/mosques`);
+      const params = {};
+      if (mosqueSearch) params.search = mosqueSearch;
+      if (mosqueSortBy) {
+        params.sortBy = mosqueSortBy;
+        params.sortOrder = 'asc';
+      }
+      
+      const response = await axios.get(`${API}/mosques`, { params });
       const data = response.data;
       
       // Ensure data is an array
       if (Array.isArray(data)) {
         setMosques(data);
-        if (data.length > 0) {
+        if (data.length > 0 && !selectedMosque) {
           setSelectedMosque(data[0].id);
         }
       } else {
