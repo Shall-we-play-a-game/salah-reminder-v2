@@ -216,10 +216,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Mosque search and sort API"
-    - "Post search and sort API"
-    - "Mosque search and sort UI"
-    - "Post search and sort UI in CommunityFeed"
+    - "MVC Refactoring Verification Complete"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
