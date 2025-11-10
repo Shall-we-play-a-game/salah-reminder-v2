@@ -108,10 +108,13 @@ const AdminDashboard = () => {
     try {
       const formData = new FormData();
       formData.append('title', postForm.title);
-      formData.append('content', postForm.content);
-      if (postForm.image) {
-        formData.append('image', postForm.image);
-      }
+      if (postForm.content) formData.append('content', postForm.content);
+      formData.append('scope', postForm.scope);
+      formData.append('city', postForm.city || mosque.city);
+      formData.append('country', postForm.country || mosque.country);
+      if (postForm.event_start_date) formData.append('event_start_date', postForm.event_start_date);
+      if (postForm.event_end_date) formData.append('event_end_date', postForm.event_end_date);
+      if (postForm.image) formData.append('image', postForm.image);
       
       await axios.post(
         `${API}/posts?admin_id=${admin.id}&mosque_id=${admin.mosque_id}`,
@@ -121,9 +124,18 @@ const AdminDashboard = () => {
         }
       );
       toast.success('Post created! Awaiting superadmin approval.');
-      setPostForm({ title: '', content: '', image: null });
+      setPostForm({
+        title: '',
+        content: '',
+        scope: 'mosque',
+        city: '',
+        country: '',
+        event_start_date: '',
+        event_end_date: '',
+        image: null
+      });
     } catch (error) {
-      toast.error('Failed to create post');
+      toast.error(error.response?.data?.detail || 'Failed to create post');
     }
   };
 
