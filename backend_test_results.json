@@ -1,7 +1,7 @@
 {
-  "timestamp": "2025-11-10T16:23:17.248923",
-  "total_tests": 37,
-  "passed_tests": 37,
+  "timestamp": "2025-11-10T16:23:47.828196",
+  "total_tests": 44,
+  "passed_tests": 44,
   "success_rate": 100.0,
   "test_details": [
     {
@@ -188,6 +188,41 @@
       "name": "Delete Post",
       "success": true,
       "details": "Status: 200"
+    },
+    {
+      "name": "Posts Filter by Scope",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Filter by Status",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Posts Combined Filtering",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Advanced Post Filtering",
+      "success": true,
+      "details": "Scope: 2, Status: 5, Combined: 2"
+    },
+    {
+      "name": "Mosque Sort by City ASC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque Sort by City DESC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque City Sort",
+      "success": true,
+      "details": "ASC: Chicago, DESC: Test City"
     }
   ]
 }
