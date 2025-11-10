@@ -165,7 +165,16 @@ class SalahReminderAPITester:
                 'email': f"testadmin_{datetime.now().strftime('%H%M%S')}@test.com",
                 'password': 'testpass123',
                 'role': 'admin',
-                'mosque_id': self.mosque_id
+                'mosque_name': 'Test Admin Mosque',
+                'mosque_phone': '+1234567890',
+                'mosque_alternate_phone': '+0987654321',
+                'mosque_address': '123 Test Street',
+                'mosque_district': 'Test District',
+                'mosque_city': 'Test City',
+                'mosque_state': 'Test State',
+                'mosque_country': 'Test Country',
+                'mosque_latitude': '40.7128',
+                'mosque_longitude': '-74.0060'
             }
             
             success, response = self.run_test(
