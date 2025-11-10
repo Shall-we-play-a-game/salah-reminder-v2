@@ -480,6 +480,42 @@ const HomePage = () => {
                 </button>
               )}
             </div>
+            
+            {/* Search and Sort Controls */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+                  Search by Name:
+                </Label>
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="Search mosques..."
+                    value={mosqueSearch}
+                    onChange={(e) => setMosqueSearch(e.target.value)}
+                    className="w-full"
+                    data-testid="mosque-search-input"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+                  Sort by:
+                </Label>
+                <Select value={mosqueSortBy} onValueChange={setMosqueSortBy} data-testid="mosque-sort-select">
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="name">Name (A-Z)</SelectItem>
+                    <SelectItem value="city">City (A-Z)</SelectItem>
+                    <SelectItem value="country">Country (A-Z)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
             <Select value={selectedMosque} onValueChange={setSelectedMosque}>
               <SelectTrigger className="w-full" data-testid="mosque-select">
                 <SelectValue placeholder="Choose a mosque" />
