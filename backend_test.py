@@ -517,6 +517,106 @@ class SalahReminderAPITester:
             self.log_test("Posts Sort Functionality", True, "Sort functionality working (insufficient data for full test)")
             return True
 
+    def test_user_favorites(self):
+        """Test user favorite mosque functionality"""
+        if not self.regular_user or not self.mosque_id:
+            self.log_test("User Favorites", False, "No regular user or mosque ID available")
+            return False
+            
+        user_id = self.regular_user['id']
+        
+        # Add mosque to favorites
+        success1, _ = self.run_test(
+            "Add Favorite Mosque",
+            "POST",
+            f"users/{user_id}/favorites/{self.mosque_id}",
+            200
+        )
+        
+        if not success1:
+            return False
+            
+        # Get user favorites
+        success2, favorites = self.run_test(
+            "Get User Favorites",
+            "GET",
+            f"users/{user_id}/favorites",
+            200
+        )
+        
+        if not success2:
+            return False
+            
+        # Check if mosque was added
+        favorite_ids = [mosque['id'] for mosque in favorites]
+        if self.mosque_id in favorite_ids:
+            self.log_test("Favorite Added Successfully", True, f"Mosque {self.mosque_id} in favorites")
+        else:
+            self.log_test("Favorite Added Successfully", False, "Mosque not found in favorites")
+            return False
+            
+        # Remove mosque from favorites
+        success3, _ = self.run_test(
+            "Remove Favorite Mosque",
+            "DELETE",
+            f"users/{user_id}/favorites/{self.mosque_id}",
+            200
+        )
+        
+        return success3
+
+    def test_get_user_id_proof(self):
+        """Test getting user ID proof"""
+        if not self.admin_id:
+            self.log_test("Get User ID Proof", False, "No admin ID available")
+            return False
+            
+        success, response = self.run_test(
+            "Get User ID Proof",
+            "GET",
+            f"users/{self.admin_id}/id-proof",
+            200
+        )
+        
+        if success and response.get('id_proof'):
+            self.log_test("ID Proof Retrieved", True, "ID proof data found")
+        elif success:
+            self.log_test("ID Proof Retrieved", False, "No ID proof data in response")
+            return False
+            
+        return success
+
+    def test_post_update_delete(self):
+        """Test post update and delete functionality"""
+        if not self.post_id:
+            self.log_test("Post Update/Delete", False, "No post ID available")
+            return False
+            
+        # Test post update
+        success1, _ = self.run_test(
+            "Update Post",
+            "PATCH",
+            f"posts/{self.post_id}",
+            200,
+            data={
+                "title": "Updated Test Post",
+                "content": "This post has been updated."
+            }
+        )
+        
+        if not success1:
+            return False
+            
+        # Test post delete
+        success2, _ = self.run_test(
+            "Delete Post",
+            "DELETE",
+            f"posts/{self.post_id}",
+            200
+        )
+        
+        return success2
+
     def run_all_tests(self):
         """Run all API tests in sequence"""
         print("🚀 Starting Salah Reminder API Tests")
