@@ -350,6 +350,209 @@ class SalahReminderAPITester:
             self.log_test("Upload Donation QR", False, f"Exception: {str(e)}")
             return False
 
+    def test_mosque_search_functionality(self):
+        """Test mosque search by name functionality"""
+        # First get all mosques to see what data we have
+        success, all_mosques = self.run_test(
+            "Get All Mosques for Search Test",
+            "GET",
+            "mosques",
+            200
+        )
+        
+        if not success or not all_mosques:
+            self.log_test("Mosque Search Test", False, "No mosques available for search testing")
+            return False
+        
+        # Try to search for a mosque by name (assuming first mosque exists)
+        if len(all_mosques) > 0:
+            first_mosque_name = all_mosques[0]['name']
+            search_term = first_mosque_name[:3]  # Use first 3 characters
+            
+            success, search_results = self.run_test(
+                "Mosque Search by Name",
+                "GET",
+                "mosques",
+                200,
+                params={"search": search_term}
+            )
+            
+            if success:
+                # Check if search functionality is working
+                if len(search_results) == len(all_mosques):
+                    self.log_test("Mosque Search Functionality", False, "Search parameter ignored - returned all mosques")
+                    return False
+                else:
+                    # Verify search results contain the search term
+                    found_match = any(search_term.lower() in mosque['name'].lower() for mosque in search_results)
+                    if found_match:
+                        self.log_test("Mosque Search Functionality", True, f"Found {len(search_results)} results for '{search_term}'")
+                        return True
+                    else:
+                        self.log_test("Mosque Search Functionality", False, "Search results don't contain search term")
+                        return False
+            else:
+                return False
+        else:
+            self.log_test("Mosque Search Test", False, "No mosque data available")
+            return False
+
+    def test_mosque_sort_functionality(self):
+        """Test mosque sort functionality"""
+        # Test sort by name ascending
+        success, sorted_results = self.run_test(
+            "Mosque Sort by Name ASC",
+            "GET",
+            "mosques",
+            200,
+            params={"sortBy": "name", "sortOrder": "asc"}
+        )
+        
+        if not success:
+            return False
+            
+        # Get unsorted results for comparison
+        success2, unsorted_results = self.run_test(
+            "Get Unsorted Mosques",
+            "GET",
+            "mosques",
+            200
+        )
+        
+        if not success2:
+            return False
+            
+        # Check if sorting is working
+        if len(sorted_results) == len(unsorted_results):
+            # Check if the order is different (indicating sorting is working)
+            if sorted_results == unsorted_results:
+                self.log_test("Mosque Sort Functionality", False, "Sort parameters ignored - same order as unsorted")
+                return False
+            else:
+                # Verify actual sorting
+                names = [mosque['name'] for mosque in sorted_results]
+                is_sorted = names == sorted(names)
+                if is_sorted:
+                    self.log_test("Mosque Sort Functionality", True, "Mosques correctly sorted by name")
+                    return True
+                else:
+                    self.log_test("Mosque Sort Functionality", False, "Mosques not properly sorted")
+                    return False
+        else:
+            self.log_test("Mosque Sort Functionality", False, "Different number of results")
+            return False
+
+    def test_posts_search_functionality(self):
+        """Test posts search by title functionality"""
+        # First get all approved posts
+        success, all_posts = self.run_test(
+            "Get All Approved Posts for Search Test",
+            "GET",
+            "posts",
+            200,
+            params={"status": "approved"}
+        )
+        
+        if not success:
+            self.log_test("Posts Search Test", False, "Failed to get posts")
+            return False
+            
+        if not all_posts or len(all_posts) == 0:
+            self.log_test("Posts Search Test", False, "No approved posts available for search testing")
+            return False
+        
+        # Try to search for a post by title
+        first_post_title = all_posts[0]['title']
+        search_term = first_post_title[:4]  # Use first 4 characters
+        
+        success, search_results = self.run_test(
+            "Posts Search by Title",
+            "GET",
+            "posts",
+            200,
+            params={"search": search_term, "status": "approved"}
+        )
+        
+        if success:
+            # Check if search functionality is working
+            if len(search_results) == len(all_posts):
+                self.log_test("Posts Search Functionality", False, "Search parameter ignored - returned all posts")
+                return False
+            else:
+                # Verify search results contain the search term
+                found_match = any(search_term.lower() in post['title'].lower() for post in search_results)
+                if found_match:
+                    self.log_test("Posts Search Functionality", True, f"Found {len(search_results)} results for '{search_term}'")
+                    return True
+                else:
+                    self.log_test("Posts Search Functionality", False, "Search results don't contain search term")
+                    return False
+        else:
+            return False
+
+    def test_posts_sort_functionality(self):
+        """Test posts sort functionality"""
+        # Test sort by created_at descending (newest first)
+        success, sorted_results = self.run_test(
+            "Posts Sort by Created Date DESC",
+            "GET",
+            "posts",
+            200,
+            params={"sortBy": "created_at", "sortOrder": "desc", "status": "approved"}
+        )
+        
+        if not success:
+            return False
+            
+        # Get unsorted results for comparison
+        success2, unsorted_results = self.run_test(
+            "Get Unsorted Posts",
+            "GET",
+            "posts",
+            200,
+            params={"status": "approved"}
+        )
+        
+        if not success2:
+            return False
+            
+        if len(sorted_results) == 0 and len(unsorted_results) == 0:
+            self.log_test("Posts Sort Functionality", False, "No posts available for sort testing")
+            return False
+            
+        # Check if sorting is working
+        if len(sorted_results) == len(unsorted_results):
+            # For posts, the default is already sorted by created_at desc, so we test with title sort
+            success3, title_sorted = self.run_test(
+                "Posts Sort by Title ASC",
+                "GET",
+                "posts",
+                200,
+                params={"sortBy": "title", "sortOrder": "asc", "status": "approved"}
+            )
+            
+            if success3 and len(title_sorted) > 0:
+                # Check if the order changed when sorting by title
+                if title_sorted == unsorted_results:
+                    self.log_test("Posts Sort Functionality", False, "Sort parameters ignored - same order")
+                    return False
+                else:
+                    # Verify actual sorting by title
+                    titles = [post['title'] for post in title_sorted]
+                    is_sorted = titles == sorted(titles)
+                    if is_sorted:
+                        self.log_test("Posts Sort Functionality", True, "Posts correctly sorted by title")
+                        return True
+                    else:
+                        self.log_test("Posts Sort Functionality", False, "Posts not properly sorted by title")
+                        return False
+            else:
+                self.log_test("Posts Sort Functionality", False, "Failed to test title sorting")
+                return False
+        else:
+            self.log_test("Posts Sort Functionality", False, "Different number of results")
+            return False
+
     def run_all_tests(self):
         """Run all API tests in sequence"""
         print("🚀 Starting Salah Reminder API Tests")
