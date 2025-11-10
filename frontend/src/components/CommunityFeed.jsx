@@ -62,19 +62,57 @@ export default function CommunityFeed({ selectedMosque, mosqueData }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-emerald-800 dark:text-emerald-400">Filter by:</h3>
-        <Select value={filterScope} onValueChange={setFilterScope}>
-          <SelectTrigger className="w-48">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Posts</SelectItem>
-            <SelectItem value="mosque">Mosque Only</SelectItem>
-            <SelectItem value="city">City Level</SelectItem>
-            <SelectItem value="country">Country Level</SelectItem>
-          </SelectContent>
-        </Select>
+      {/* Filter, Search, and Sort Controls */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+            Filter by Scope:
+          </Label>
+          <Select value={filterScope} onValueChange={setFilterScope} data-testid="filter-scope-select">
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Posts</SelectItem>
+              <SelectItem value="mosque">Mosque Only</SelectItem>
+              <SelectItem value="city">City Level</SelectItem>
+              <SelectItem value="country">Country Level</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+            Search by Title:
+          </Label>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search posts..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+              data-testid="post-search-input"
+            />
+          </div>
+        </div>
+
+        <div>
+          <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+            Sort by:
+          </Label>
+          <Select value={sortBy} onValueChange={setSortBy} data-testid="sort-by-select">
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="created_at">Newest First</SelectItem>
+              <SelectItem value="title">Title (A-Z)</SelectItem>
+              <SelectItem value="event_start_date">Event Date</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {loading ? (
