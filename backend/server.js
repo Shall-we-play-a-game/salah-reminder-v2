@@ -589,6 +589,55 @@ app.patch('/api/posts/:post_id/status', async (req, res) => {
   }
 });
 
+app.patch('/api/posts/:post_id', upload.single('image'), async (req, res) => {
+  try {
+    const { title, content, scope, city, country, event_start_date, event_end_date } = req.body;
+    
+    const updateData = {
+      title,
+      scope,
+      city,
+      country,
+    };
+    
+    if (content !== undefined) updateData.content = content;
+    if (event_start_date) updateData.event_start_date = new Date(event_start_date);
+    if (event_end_date) updateData.event_end_date = new Date(event_end_date);
+    
+    if (req.file) {
+      updateData.image = req.file.buffer.toString('base64');
+    }
+    
+    const post = await Post.findOneAndUpdate(
+      { id: req.params.post_id },
+      updateData,
+      { new: true }
+    );
+    
+    if (!post) {
+      return res.status(404).json({ detail: 'Post not found' });
+    }
+    
+    res.json(post);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete('/api/posts/:post_id', async (req, res) => {
+  try {
+    const post = await Post.findOneAndDelete({ id: req.params.post_id });
+    
+    if (!post) {
+      return res.status(404).json({ detail: 'Post not found' });
+    }
+    
+    res.json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
