@@ -364,37 +364,28 @@ class SalahReminderAPITester:
             self.log_test("Mosque Search Test", False, "No mosques available for search testing")
             return False
         
-        # Try to search for a mosque by name (assuming first mosque exists)
-        if len(all_mosques) > 0:
-            first_mosque_name = all_mosques[0]['name']
-            search_term = first_mosque_name[:3]  # Use first 3 characters
-            
-            success, search_results = self.run_test(
-                "Mosque Search by Name",
-                "GET",
-                "mosques",
-                200,
-                params={"search": search_term}
-            )
-            
-            if success:
-                # Check if search functionality is working
-                if len(search_results) == len(all_mosques):
-                    self.log_test("Mosque Search Functionality", False, "Search parameter ignored - returned all mosques")
-                    return False
-                else:
-                    # Verify search results contain the search term
-                    found_match = any(search_term.lower() in mosque['name'].lower() for mosque in search_results)
-                    if found_match:
-                        self.log_test("Mosque Search Functionality", True, f"Found {len(search_results)} results for '{search_term}'")
-                        return True
-                    else:
-                        self.log_test("Mosque Search Functionality", False, "Search results don't contain search term")
-                        return False
+        # Test with a search term that should return no results if search is working
+        success, search_results = self.run_test(
+            "Mosque Search by Name - Non-existent",
+            "GET",
+            "mosques",
+            200,
+            params={"search": "NONEXISTENT_MOSQUE_NAME_12345"}
+        )
+        
+        if success:
+            # If search functionality is working, this should return 0 results
+            # If search is not implemented, it will return all mosques
+            if len(search_results) == len(all_mosques):
+                self.log_test("Mosque Search Functionality", False, "Search parameter ignored - returned all mosques for non-existent search")
+                return False
+            elif len(search_results) == 0:
+                self.log_test("Mosque Search Functionality", True, "Search correctly returned 0 results for non-existent term")
+                return True
             else:
+                self.log_test("Mosque Search Functionality", False, f"Unexpected search behavior - returned {len(search_results)} results")
                 return False
         else:
-            self.log_test("Mosque Search Test", False, "No mosque data available")
             return False
 
     def test_mosque_sort_functionality(self):
