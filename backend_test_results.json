@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-10T16:22:58.867476",
+  "timestamp": "2025-11-10T16:23:17.248923",
   "total_tests": 37,
-  "passed_tests": 35,
-  "success_rate": 94.5945945945946,
+  "passed_tests": 37,
+  "success_rate": 100.0,
   "test_details": [
     {
       "name": "API Root",
@@ -132,7 +132,7 @@
     {
       "name": "Posts Search Functionality",
       "success": true,
-      "details": "Search working: found 5 results for 'Test', 0 for non-existent term"
+      "details": "Search working: found 6 results for 'Test', 0 for non-existent term"
     },
     {
       "name": "Posts Sort by Created Date ASC",
@@ -147,7 +147,7 @@
     {
       "name": "Posts Sort Functionality",
       "success": true,
-      "details": "Sort working: 5 posts sorted by date"
+      "details": "Sort working: 6 posts sorted by date"
     },
     {
       "name": "Add Favorite Mosque",
@@ -166,8 +166,8 @@
     },
     {
       "name": "Remove Favorite Mosque",
-      "success": false,
-      "details": "Exception: cannot access local variable 'response' where it is not associated with a value"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Get User ID Proof",
@@ -186,8 +186,8 @@
     },
     {
       "name": "Delete Post",
-      "success": false,
-      "details": "Exception: cannot access local variable 'response' where it is not associated with a value"
+      "success": true,
+      "details": "Status: 200"
     }
   ]
 }
