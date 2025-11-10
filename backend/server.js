@@ -490,7 +490,20 @@ app.post('/api/prayer-times', async (req, res) => {
 app.post('/api/posts', upload.single('image'), async (req, res) => {
   try {
     const { admin_id, mosque_id } = req.query;
-    const { title, content } = req.body;
+    const { 
+      title, 
+      content, 
+      scope, 
+      city, 
+      country, 
+      event_start_date, 
+      event_end_date 
+    } = req.body;
+    
+    // Validate: content or image must be provided
+    if (!content && !req.file) {
+      return res.status(400).json({ detail: 'Either content or image must be provided' });
+    }
     
     let imageBase64 = null;
     if (req.file) {
@@ -499,11 +512,16 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
     
     const post = new Post({
       id: generateId(),
-      mosque_id,
+      mosque_id: scope === 'mosque' ? mosque_id : null,
       admin_id,
       title,
-      content,
-      image: imageBase64
+      content: content || null,
+      image: imageBase64,
+      scope: scope || 'mosque',
+      city,
+      country,
+      event_start_date: event_start_date ? new Date(event_start_date) : null,
+      event_end_date: event_end_date ? new Date(event_end_date) : null,
     });
     
     await post.save();
