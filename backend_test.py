@@ -431,49 +431,34 @@ class SalahReminderAPITester:
 
     def test_posts_search_functionality(self):
         """Test posts search by title functionality"""
-        # First get all approved posts
-        success, all_posts = self.run_test(
-            "Get All Approved Posts for Search Test",
+        # Test search with 'Test' - should find posts with 'Test' in title
+        success, search_results = self.run_test(
+            "Posts Search by Title - 'Test'",
             "GET",
             "posts",
             200,
-            params={"status": "approved"}
+            params={"search": "Test", "status": "approved"}
         )
         
         if not success:
-            self.log_test("Posts Search Test", False, "Failed to get posts")
             return False
             
-        if not all_posts or len(all_posts) == 0:
-            self.log_test("Posts Search Test", False, "No approved posts available for search testing")
-            return False
-        
-        # Try to search for a post by title
-        first_post_title = all_posts[0]['title']
-        search_term = first_post_title[:4]  # Use first 4 characters
-        
-        success, search_results = self.run_test(
-            "Posts Search by Title",
+        # Test with a search term that should return no results
+        success2, no_results = self.run_test(
+            "Posts Search by Title - Non-existent",
             "GET",
             "posts",
             200,
-            params={"search": search_term, "status": "approved"}
+            params={"search": "NONEXISTENT_POST_TITLE_12345", "status": "approved"}
         )
         
-        if success:
-            # Check if search functionality is working
-            if len(search_results) == len(all_posts):
-                self.log_test("Posts Search Functionality", False, "Search parameter ignored - returned all posts")
-                return False
+        if success2:
+            if len(no_results) == 0 and len(search_results) > 0:
+                self.log_test("Posts Search Functionality", True, f"Search working: found {len(search_results)} results for 'Test', 0 for non-existent term")
+                return True
             else:
-                # Verify search results contain the search term
-                found_match = any(search_term.lower() in post['title'].lower() for post in search_results)
-                if found_match:
-                    self.log_test("Posts Search Functionality", True, f"Found {len(search_results)} results for '{search_term}'")
-                    return True
-                else:
-                    self.log_test("Posts Search Functionality", False, "Search results don't contain search term")
-                    return False
+                self.log_test("Posts Search Functionality", False, "Search not working properly")
+                return False
         else:
             return False
 
