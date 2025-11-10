@@ -81,11 +81,16 @@ const prayerTimeSchema = new mongoose.Schema({
 
 const postSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
-  mosque_id: { type: String, required: true },
+  mosque_id: String,  // Optional for city/country level posts
   admin_id: { type: String, required: true },
   title: { type: String, required: true },
-  content: { type: String, required: true },
-  image: String,  // base64 encoded image
+  content: String,  // Optional if image is provided
+  image: String,  // base64 encoded image - optional
+  scope: { type: String, required: true, enum: ['mosque', 'city', 'country'], default: 'mosque' },
+  city: String,
+  country: String,
+  event_start_date: Date,
+  event_end_date: Date,
   status: { type: String, default: 'pending', enum: ['pending', 'approved', 'rejected'] },
   created_at: { type: Date, default: Date.now }
 });
