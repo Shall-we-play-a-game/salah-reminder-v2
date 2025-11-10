@@ -549,13 +549,18 @@ app.post('/api/posts', upload.single('image'), async (req, res) => {
 
 app.get('/api/posts', async (req, res) => {
   try {
-    const { mosque_id, status, scope, city, country } = req.query;
+    const { mosque_id, status, scope, city, country, search, sortBy, sortOrder } = req.query;
     const query = {};
     
     if (status) query.status = status;
     if (scope) query.scope = scope;
     if (city) query.city = city;
     if (country) query.country = country;
+    
+    // Search by title
+    if (search) {
+      query.title = { $regex: search, $options: 'i' };
+    }
     
     // For mosque-level posts
     if (mosque_id) {
@@ -566,7 +571,15 @@ app.get('/api/posts', async (req, res) => {
       ];
     }
     
-    const posts = await Post.find(query, { _id: 0, __v: 0 }).sort({ created_at: -1 });
+    // Build sort object
+    let sort = {};
+    if (sortBy) {
+      sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    } else {
+      sort.created_at = -1; // Default sort by newest first
+    }
+    
+    const posts = await Post.find(query, { _id: 0, __v: 0 }).sort(sort);
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
