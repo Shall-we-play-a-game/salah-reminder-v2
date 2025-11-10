@@ -116,12 +116,23 @@ const HomePage = () => {
   const fetchMosques = async () => {
     try {
       const response = await axios.get(`${API}/mosques`);
-      setMosques(response.data);
-      if (response.data.length > 0) {
-        setSelectedMosque(response.data[0].id);
+      const data = response.data;
+      
+      // Ensure data is an array
+      if (Array.isArray(data)) {
+        setMosques(data);
+        if (data.length > 0) {
+          setSelectedMosque(data[0].id);
+        }
+      } else {
+        console.error('Mosques data is not an array:', data);
+        setMosques([]);
+        toast.error('Failed to load mosques data');
       }
     } catch (error) {
       console.error('Error fetching mosques:', error);
+      setMosques([]);
+      toast.error('Failed to connect to server. Please check your connection.');
     }
   };
 
