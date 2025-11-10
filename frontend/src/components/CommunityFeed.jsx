@@ -51,77 +51,77 @@ export default function CommunityFeed({ selectedMosque, mosqueData }) {
   };
 
   return (
-    <div className=\"space-y-4\">
-      <div className=\"flex items-center justify-between\">
-        <h3 className=\"font-semibold text-emerald-800 dark:text-emerald-400\">Filter by:</h3>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="font-semibold text-emerald-800 dark:text-emerald-400">Filter by:</h3>
         <Select value={filterScope} onValueChange={setFilterScope}>
-          <SelectTrigger className=\"w-48\">
+          <SelectTrigger className="w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value=\"all\">All Posts</SelectItem>
-            <SelectItem value=\"mosque\">Mosque Only</SelectItem>
-            <SelectItem value=\"city\">City Level</SelectItem>
-            <SelectItem value=\"country\">Country Level</SelectItem>
+            <SelectItem value="all">All Posts</SelectItem>
+            <SelectItem value="mosque">Mosque Only</SelectItem>
+            <SelectItem value="city">City Level</SelectItem>
+            <SelectItem value="country">Country Level</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {loading ? (
-        <p className=\"text-center text-gray-500 dark:text-gray-400 py-8\">Loading posts...</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 py-8">Loading posts...</p>
       ) : posts.length > 0 ? (
-        <div className=\"space-y-4\">
+        <div className="space-y-4">
           {posts.map((post) => (
             <div
               key={post.id}
-              className=\"bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700\"
+              className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-700"
               data-testid={`post-${post.id}`}
             >
-              <div className=\"flex items-start justify-between mb-2\">
-                <h3 className=\"font-semibold text-emerald-800 dark:text-emerald-400\">{post.title}</h3>
-                <div className=\"flex gap-1\">
-                  <Badge variant={post.scope === 'mosque' ? 'default' : post.scope === 'city' ? 'secondary' : 'outline'} className=\"text-xs\">
+              <div className="flex items-start justify-between mb-2">
+                <h3 className="font-semibold text-emerald-800 dark:text-emerald-400">{post.title}</h3>
+                <div className="flex gap-1">
+                  <Badge variant={post.scope === 'mosque' ? 'default' : post.scope === 'city' ? 'secondary' : 'outline'} className="text-xs">
                     {post.scope}
                   </Badge>
                 </div>
               </div>
               
               {post.city && (
-                <p className=\"text-xs text-gray-600 dark:text-gray-400 mb-2\">
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
                   📍 {post.city}, {post.country}
                 </p>
               )}
               
               {post.event_start_date && (
-                <div className=\"flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 mb-2\">
-                  <Calendar className=\"w-3 h-3\" />
+                <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 mb-2">
+                  <Calendar className="w-3 h-3" />
                   Event: {new Date(post.event_start_date).toLocaleDateString()} - {new Date(post.event_end_date).toLocaleDateString()}
                 </div>
               )}
               
               {post.image && (
-                <div className=\"my-3\">
+                <div className="my-3">
                   <img
                     src={`data:image/png;base64,${post.image}`}
                     alt={post.title}
-                    className=\"w-full max-h-96 object-cover rounded-lg\"
+                    className="w-full max-h-96 object-cover rounded-lg"
                     data-testid={`post-image-${post.id}`}
                   />
                 </div>
               )}
               
               {post.content && (
-                <p className=\"text-gray-700 dark:text-gray-300 text-sm\">{post.content}</p>
+                <p className="text-gray-700 dark:text-gray-300 text-sm">{post.content}</p>
               )}
               
-              <p className=\"text-xs text-gray-500 dark:text-gray-400 mt-2\">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                 {new Date(post.created_at).toLocaleDateString()}
               </p>
             </div>
           ))}
         </div>
       ) : (
-        <p className=\"text-center text-gray-500 dark:text-gray-400 py-8\">
+        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
           No community posts available for {filterScope === 'all' ? 'any scope' : filterScope + ' level'}
         </p>
       )}
