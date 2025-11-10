@@ -100,7 +100,7 @@ yarn ios
 
 The app connects to the backend API at:
 ```
-https://mosque-connect-11.preview.emergentagent.com/api
+https://prayerpal-14.preview.emergentagent.com/api
 ```
 
 To change the API URL, edit `/app/mobile/src/services/api.js`:

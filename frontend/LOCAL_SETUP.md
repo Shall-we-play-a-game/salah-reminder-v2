@@ -13,7 +13,7 @@ You're getting: `Uncaught TypeError: mosques.find is not a function`
 
 **Solution:** We added a fallback in the code:
 ```javascript
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-11.preview.emergentagent.com';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://prayerpal-14.preview.emergentagent.com';
 ```
 
 **But you should still create a `.env` file:**
@@ -22,7 +22,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-
 # Create .env file in /app/frontend/
 cd /app/frontend
 cat > .env << 'EOF'
-VITE_BACKEND_URL=https://mosque-connect-11.preview.emergentagent.com
+VITE_BACKEND_URL=https://prayerpal-14.preview.emergentagent.com
 EOF
 ```
 
@@ -64,7 +64,7 @@ yarn install
 
 ```bash
 # Option 1: Use provided backend
-echo "VITE_BACKEND_URL=https://mosque-connect-11.preview.emergentagent.com" > .env
+echo "VITE_BACKEND_URL=https://prayerpal-14.preview.emergentagent.com" > .env
 
 # Option 2: Use local backend
 echo "VITE_BACKEND_URL=http://localhost:8001" > .env
@@ -82,7 +82,7 @@ Server will start at: `http://localhost:3000`
 
 Open browser console and check:
 ```
-API URL: https://mosque-connect-11.preview.emergentagent.com/api
+API URL: https://prayerpal-14.preview.emergentagent.com/api
 ```
 
 If you see this, the connection is configured correctly.
@@ -93,7 +93,7 @@ If you see this, the connection is configured correctly.
 
 ```bash
 # Test backend API
-curl https://mosque-connect-11.preview.emergentagent.com/api/mosques
+curl https://prayerpal-14.preview.emergentagent.com/api/mosques
 
 # Should return JSON array of mosques
 ```
@@ -198,7 +198,7 @@ node seed_data.js
 
 ```bash
 # Frontend (.env)
-VITE_BACKEND_URL=https://mosque-connect-11.preview.emergentagent.com
+VITE_BACKEND_URL=https://prayerpal-14.preview.emergentagent.com
 
 # Backend (.env)
 MONGO_URL=mongodb://localhost:27017
@@ -224,7 +224,7 @@ CORS_ORIGINS=*
 2. Open Browser DevTools Console
 3. You should see:
    ```
-   API URL: https://mosque-connect-11.preview.emergentagent.com/api
+   API URL: https://prayerpal-14.preview.emergentagent.com/api
    ```
 4. Page should load without errors
 5. Mosques dropdown should be populated
@@ -233,7 +233,7 @@ CORS_ORIGINS=*
 
 ```bash
 # Test from command line
-curl https://mosque-connect-11.preview.emergentagent.com/api/mosques | jq
+curl https://prayerpal-14.preview.emergentagent.com/api/mosques | jq
 
 # Should see:
 [

@@ -1,0 +1,96 @@
+<analysis>
+The previous AI engineer effectively navigated a complex and evolving set of requirements to build a full-stack Salah Reminder application. The development followed an iterative process, starting with core features and progressively adding functionality based on user feedback. Key architectural shifts included migrating the backend from FastAPI (Python) to Node.js Express and the frontend from Create React App to Vite + React. A significant addition was the creation of a separate React Native mobile application, sharing the same backend. The engineer demonstrated proficiency in debugging, especially when encountering environment-specific issues during the Vite migration and data discrepancies due to schema changes. The work concluded mid-implementation of search and sorting features for posts and mosques, requiring further frontend development and mobile app synchronization.
+</analysis>
+
+<product_requirements>
+The goal is a Salah Reminder application with three main user roles: User, Admin, and Superadmin.
+**Core User Features:**
+*   View Salah timings for selected mosques.
+*   Toggle alarms for individual prayer times (no login required).
+*   Ability to favorite mosques.
+*   Donation section: Scan QR codes uploaded by admins.
+*   Community Feed: View posts from admins, filtered by mosque, city, or country; sortable.
+*   Light/Dark mode and ringtone selection (5 options).
+
+**Admin Features:**
+*   Register with a valid ID proof (image upload).
+*   Set Salah timings for their registered mosque (manual entry or Aladhan API).
+*   Upload QR code for donations during registration.
+*   Provide mosque details: name, phone, alternate phone, location, city, state, district, full address.
+*   Post community updates with optional images, including city, country, event start, and end dates.
+
+**Superadmin Features:**
+*   Approve admin registrations (after reviewing ID proof).
+*   View all mosques.
+*   Change timings for any mosque.
+*   Approve community feed posts before public display.
+*   Edit and delete any community feed post.
+*   Post community feed updates.
+
+**Technical & Design Requirements:**
+*   Backend: Initially FastAPI, migrated to Node.js Express.
+*   Frontend (Web): Initially Create React App, migrated to Vite + React.
+*   Frontend (Mobile): React Native (new folder, separate codebase, same backend API).
+*   Database: MongoDB.
+*   Design: Islamic-inspired, minimalist, clean interface with modern UI/UX principles (Shadcn UI components, micro-animations, proper spacing, varied fonts, no generic colors/gradients).
+*   Scalable code structure.
+*   All interactive and critical elements must have  attributes.
+</product_requirements>
+
+<key_technical_concepts>
+-   **Full-stack Architecture**: React (web), React Native (mobile), Node.js Express (backend), MongoDB (database).
+-   **Frontend Development**: Vite, Shadcn UI, Tailwind CSS, React Hooks,  API for theme.
+-   **Backend Development**: Node.js Express, MongoDB driver/ORM.
+-   **API Integration**: Aladhan API for prayer times.
+-   **Environment Management**: Supervisor for process control,  files for configuration.
+-   **Testing**: Dedicated testing agent, screenshots for UI verification, direct API calls (curl).
+-   **Design Principles**: Islamic-inspired, minimalist, modern UI/UX, accessibility via .
+</key_technical_concepts>
+
+<code_architecture>
+The application has a monorepo-like structure with distinct backend, frontend (web), and mobile (React Native) components.
+
+
+
+**Key Files and Changes:**
+*   : The core backend application, rewritten from Python FastAPI to Node.js Express. It handles user authentication, admin/superadmin roles, mosque management (CRUD, timings), community posts (CRUD, approval, image upload, filtering, search, sorting), and favorite mosque functionality. It uses MongoDB for data persistence. Critical for all API interactions.
+*   : Manages Node.js dependencies for the backend. Created during the backend migration.
+*   : Manages Node.js dependencies for the web frontend. Heavily modified during the Vite migration, introducing Vite-specific dependencies.
+*   : Configuration file for Vite. Added during the Vite migration, it defines how the frontend project is built and served, including handling JSX, host configuration, and HMR.
+*   : The main user-facing page. Contains mosque selection, prayer times display, alarm toggles, theme and ringtone settings, and the tabbed interface for Donation and Community Feed. It was modified extensively to support new features like favorite mosques, tabs, and to integrate the  component.
+*   : Admin-specific page for managing mosque timings and creating community posts. Updated to include new mosque details (location, address) and community post fields (city, country, event dates, image upload).
+*   : Superadmin-specific page for approving admins, managing mosques, and approving/editing/deleting community posts. This was rewritten as a comprehensive component to accommodate all new superadmin features.
+*   : A new component created to display community posts with filtering by scope (mosque, city, country) and currently being updated for search and sorting.
+*   : A new directory housing the entire React Native application, including its own , , and screen components. This codebase is entirely separate from the web frontend but consumes the same backend API.
+*    and : Supervisor configuration files that were updated to run the Node.js backend and Vite frontend respectively, replacing the Python FastAPI and CRA configurations.
+
+The architecture emphasizes separation of concerns with dedicated folders for services, hooks, and utils in both frontend applications, promoting scalability and maintainability.
+</code_architecture>
+
+<pending_tasks>
+-   Complete search and sorting functionality for mosques on the frontend (web).
+-   Implement superadmin's ability to post community feed from the frontend (web).
+-   Update the React Native mobile application to include all recently added features:
+    -   Superadmin dashboard with new capabilities (view all mosques, change timings, edit/delete posts, post feed).
+    -   Community feed filters (mosque, city, country) and search/sort.
+    -   Admin post form with city, country, event dates, and optional image upload.
+</pending_tasks>
+
+<current_work>
+Currently, the AI engineer is in the process of implementing comprehensive search and sorting functionality for posts and mosques across the application, as requested by the user.
+
+**Backend ():**
+The backend endpoints for posts and mosques have been updated to support search and sorting parameters. This involves modifying the respective API routes to accept query parameters for title search, sorting criteria for posts, and name/city search for mosques. The backend server has been restarted to apply these changes, and it is confirmed to be running and accessible.
+
+**Frontend ():**
+The  component, which displays community posts on the homepage, has been updated. This update includes adding a search input field to filter posts by title and potentially sorting controls. This is an ongoing task to fully integrate the frontend UI with the newly updated backend API for post search and sorting.
+
+The trajectory concludes mid-way through this feature implementation, specifically after updating the backend and the  component in the web frontend. The next logical step would be to continue integrating these features into the web frontend, particularly for mosque search and sorting, and then replicate them in the mobile application.
+</current_work>
+
+<optional_next_step>
+I will continue updating the web frontend ( and potentially ) to include search and sorting functionality for mosques, and integrate the post search and sort into the main 's Community Feed tab.
+
+**Direct Quote:** add search functionality to post according to title and sorting + search in mosque sorting according to city and search by name etc - Chat Message 365.
+Now let me update the CommunityFeed component with search and sort: - Chat Message 372.
+</optional_next_step>

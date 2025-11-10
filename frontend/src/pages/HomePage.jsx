@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import CommunityFeed from '@/components/CommunityFeed';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-11.preview.emergentagent.com';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://prayerpal-14.preview.emergentagent.com';
 const API = `${BACKEND_URL}/api`;
 
 // Debug: Log API URL

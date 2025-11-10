@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://mosque-connect-11.preview.emergentagent.com/api';
+const API_URL = 'https://prayerpal-14.preview.emergentagent.com/api';
 
 const api = axios.create({
   baseURL: API_URL,

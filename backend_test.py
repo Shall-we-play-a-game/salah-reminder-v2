@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 class SalahReminderAPITester:
-    def __init__(self, base_url="https://mosque-connect-11.preview.emergentagent.com"):
+    def __init__(self, base_url="https://prayerpal-14.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0

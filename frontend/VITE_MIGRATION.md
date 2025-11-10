@@ -164,7 +164,7 @@ import { useAuth } from '@/hooks/useAuth';
 ### Environment Variables
 Create `.env` file:
 ```
-VITE_BACKEND_URL=https://mosque-connect-11.preview.emergentagent.com
+VITE_BACKEND_URL=https://prayerpal-14.preview.emergentagent.com
 ```
 
 Access in code:

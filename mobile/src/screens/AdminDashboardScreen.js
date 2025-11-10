@@ -38,7 +38,7 @@ export default function AdminDashboardScreen() {
               Please visit the web application at:
             </Text>
             <Text variant="bodySmall" style={styles.webUrl}>
-              https://mosque-connect-11.preview.emergentagent.com
+              https://prayerpal-14.preview.emergentagent.com
             </Text>
           </View>
         </Card.Content>

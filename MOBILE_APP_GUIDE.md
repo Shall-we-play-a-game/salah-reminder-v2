@@ -163,7 +163,7 @@ yarn ios
 ### API URL
 Located in `/app/mobile/src/services/api.js`:
 ```javascript
-const API_URL = 'https://mosque-connect-11.preview.emergentagent.com/api';
+const API_URL = 'https://prayerpal-14.preview.emergentagent.com/api';
 ```
 
 ### Theme Colors
