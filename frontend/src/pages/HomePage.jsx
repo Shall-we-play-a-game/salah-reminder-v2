@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
+import CommunityFeed from '@/components/CommunityFeed';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-11.preview.emergentagent.com';
 const API = `${BACKEND_URL}/api`;
