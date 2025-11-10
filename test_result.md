@@ -107,27 +107,33 @@ user_problem_statement: "Complete search and sorting functionality for posts and
 backend:
   - task: "Mosque search and sort API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Backend already has search by name and sort by city/name/country for mosques endpoint /api/mosques. Query params: search, sortBy, sortOrder."
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Mosque search and sort functionality fully working. Search by name using regex (case-insensitive), tested with 'Al' (found 2 results), 'Islamic' (found 1 result), and non-existent terms (0 results). Sort by name ASC/DESC working correctly. Sort by city also tested and working. All query parameters (search, sortBy, sortOrder) properly implemented in Node.js backend."
         
   - task: "Post search and sort API"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/backend/server.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Backend already has search by title and sort for posts endpoint /api/posts. Query params: search, sortBy, sortOrder."
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Posts search and sort functionality fully working. Search by title using regex (case-insensitive), tested with 'Test' (found 3 results) and non-existent terms (0 results). Sort by created_at ASC/DESC working correctly, posts properly ordered by date. All query parameters (search, sortBy, sortOrder) properly implemented with status filtering."
 
 frontend:
   - task: "Mosque search and sort UI"
