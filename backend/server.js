@@ -124,7 +124,23 @@ app.get('/api', (req, res) => {
 
 app.get('/api/mosques', async (req, res) => {
   try {
-    const mosques = await Mosque.find({}, { _id: 0, __v: 0 });
+    const { search, sortBy, sortOrder } = req.query;
+    let query = {};
+    
+    // Search by name
+    if (search) {
+      query.name = { $regex: search, $options: 'i' };
+    }
+    
+    // Build sort object
+    let sort = {};
+    if (sortBy) {
+      sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    } else {
+      sort.name = 1; // Default sort by name ascending
+    }
+    
+    const mosques = await Mosque.find(query, { _id: 0, __v: 0 }).sort(sort);
     res.json(mosques);
   } catch (error) {
     res.status(500).json({ error: error.message });
