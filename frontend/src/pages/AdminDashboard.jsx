@@ -27,6 +27,11 @@ const AdminDashboard = () => {
   const [postForm, setPostForm] = useState({
     title: '',
     content: '',
+    scope: 'mosque',
+    city: '',
+    country: '',
+    event_start_date: '',
+    event_end_date: '',
     image: null
   });
   const [qrFile, setQrFile] = useState(null);
