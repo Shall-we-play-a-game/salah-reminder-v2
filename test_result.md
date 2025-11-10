@@ -101,3 +101,75 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Complete search and sorting functionality for posts and mosques. Add search functionality to posts according to title and sorting. Add search in mosque and sorting according to city and search by name."
+
+backend:
+  - task: "Mosque search and sort API"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Backend already has search by name and sort by city/name/country for mosques endpoint /api/mosques. Query params: search, sortBy, sortOrder."
+        
+  - task: "Post search and sort API"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Backend already has search by title and sort for posts endpoint /api/posts. Query params: search, sortBy, sortOrder."
+
+frontend:
+  - task: "Mosque search and sort UI"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/HomePage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added search input and sort dropdown for mosques in HomePage. Search by name, sort by name/city/country. Uses state variables mosqueSearch and mosqueSortBy, integrated with fetchMosques function."
+        
+  - task: "Post search and sort UI in CommunityFeed"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/CommunityFeed.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added search input and sort dropdown UI to CommunityFeed component. Search by title, sort by created_at/title/event_start_date. Backend integration already existed, just added UI controls."
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Mosque search and sort API"
+    - "Post search and sort API"
+    - "Mosque search and sort UI"
+    - "Post search and sort UI in CommunityFeed"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Phase 1 implementation complete. Added search and sort UI for mosques in HomePage and posts in CommunityFeed. Backend endpoints already support these features. Ready for backend testing first, then frontend testing. Screenshots show UI is rendering correctly."
