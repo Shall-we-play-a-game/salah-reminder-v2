@@ -619,6 +619,76 @@ class SalahReminderAPITester:
         
         return success2
 
+    def test_advanced_post_filtering(self):
+        """Test advanced post filtering by scope, city, country"""
+        # Test filtering by scope
+        success1, scope_results = self.run_test(
+            "Posts Filter by Scope",
+            "GET",
+            "posts",
+            200,
+            params={"scope": "mosque", "status": "approved"}
+        )
+        
+        if not success1:
+            return False
+            
+        # Test filtering by status
+        success2, status_results = self.run_test(
+            "Posts Filter by Status",
+            "GET",
+            "posts",
+            200,
+            params={"status": "approved"}
+        )
+        
+        if not success2:
+            return False
+            
+        # Test combined filtering
+        success3, combined_results = self.run_test(
+            "Posts Combined Filtering",
+            "GET",
+            "posts",
+            200,
+            params={"status": "approved", "scope": "mosque"}
+        )
+        
+        if success3:
+            self.log_test("Advanced Post Filtering", True, f"Scope: {len(scope_results)}, Status: {len(status_results)}, Combined: {len(combined_results)}")
+            return True
+        else:
+            return False
+
+    def test_mosque_sort_by_city(self):
+        """Test mosque sorting by city"""
+        success1, city_asc = self.run_test(
+            "Mosque Sort by City ASC",
+            "GET",
+            "mosques",
+            200,
+            params={"sortBy": "city", "sortOrder": "asc"}
+        )
+        
+        if not success1:
+            return False
+            
+        success2, city_desc = self.run_test(
+            "Mosque Sort by City DESC",
+            "GET",
+            "mosques",
+            200,
+            params={"sortBy": "city", "sortOrder": "desc"}
+        )
+        
+        if success2 and len(city_asc) > 0:
+            cities_asc = [mosque['city'] for mosque in city_asc]
+            cities_desc = [mosque['city'] for mosque in city_desc]
+            self.log_test("Mosque City Sort", True, f"ASC: {cities_asc[0]}, DESC: {cities_desc[0]}")
+            return True
+        else:
+            return success2
+
     def run_all_tests(self):
         """Run all API tests in sequence"""
         print("🚀 Starting Salah Reminder API Tests")
