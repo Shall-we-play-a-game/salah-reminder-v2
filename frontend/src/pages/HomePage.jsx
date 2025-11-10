@@ -39,6 +39,8 @@ const HomePage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [selectedRingtone, setSelectedRingtone] = useState('adhan');
   const [showSettings, setShowSettings] = useState(false);
+  const [mosqueSearch, setMosqueSearch] = useState('');
+  const [mosqueSortBy, setMosqueSortBy] = useState('name');
   const [registerForm, setRegisterForm] = useState({
     email: '',
     password: '',
