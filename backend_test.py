@@ -737,6 +737,12 @@ class SalahReminderAPITester:
         self.test_get_user_id_proof()
         self.test_post_update_delete()
         
+        # Advanced filtering and sorting tests
+        print("\n🎯 Testing Advanced Filtering & Sorting")
+        print("-" * 30)
+        self.test_advanced_post_filtering()
+        self.test_mosque_sort_by_city()
+        
         # Print summary
         print("\n" + "=" * 50)
         print(f"📊 Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
