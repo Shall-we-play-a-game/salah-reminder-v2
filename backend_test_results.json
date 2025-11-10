@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-10T15:01:41.368035",
-  "total_tests": 30,
-  "passed_tests": 23,
-  "success_rate": 76.66666666666667,
+  "timestamp": "2025-11-10T15:04:46.154502",
+  "total_tests": 29,
+  "passed_tests": 24,
+  "success_rate": 82.75862068965517,
   "test_details": [
     {
       "name": "API Root",
@@ -90,19 +90,19 @@
       "details": "Status: 200"
     },
     {
-      "name": "Get All Mosques for Search Test",
+      "name": "Mosque Search by Name - 'Al'",
       "success": true,
       "details": "Status: 200"
     },
     {
-      "name": "Mosque Search by Name",
+      "name": "Mosque Search by Name - Non-existent",
       "success": true,
       "details": "Status: 200"
     },
     {
       "name": "Mosque Search Functionality",
       "success": true,
-      "details": "Found 2 results for 'Al-'"
+      "details": "Search working: found 2 results for 'Al', 0 for non-existent term"
     },
     {
       "name": "Mosque Sort by Name ASC",
@@ -110,29 +110,34 @@
       "details": "Status: 200"
     },
     {
-      "name": "Get Unsorted Mosques",
+      "name": "Mosque Sort by Name DESC",
       "success": true,
       "details": "Status: 200"
     },
     {
       "name": "Mosque Sort Functionality",
-      "success": false,
-      "details": "Sort parameters ignored - same order as unsorted"
+      "success": true,
+      "details": "Sort working: ASC=Al-Noor Mosque, DESC=Masjid Al-Rahman"
     },
     {
-      "name": "Get All Approved Posts for Search Test",
+      "name": "Posts Search by Title - 'Test'",
       "success": true,
       "details": "Status: 200"
     },
     {
-      "name": "Posts Search by Title",
+      "name": "Posts Search by Title - Non-existent",
       "success": true,
       "details": "Status: 200"
     },
     {
       "name": "Posts Search Functionality",
-      "success": false,
-      "details": "Search parameter ignored - returned all posts"
+      "success": true,
+      "details": "Search working: found 3 results for 'Test', 0 for non-existent term"
+    },
+    {
+      "name": "Posts Sort by Created Date ASC",
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Posts Sort by Created Date DESC",
@@ -140,19 +145,9 @@
       "details": "Status: 200"
     },
     {
-      "name": "Get Unsorted Posts",
-      "success": true,
-      "details": "Status: 200"
-    },
-    {
-      "name": "Posts Sort by Title ASC",
-      "success": true,
-      "details": "Status: 200"
-    },
-    {
       "name": "Posts Sort Functionality",
       "success": true,
-      "details": "Posts correctly sorted by title"
+      "details": "Sort working: 3 posts sorted by date"
     }
   ]
 }
