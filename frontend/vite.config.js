@@ -23,8 +23,9 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: true,
+    host: '0.0.0.0',
     strictPort: true,
+    allowedHosts: ['mosque-connect-11.preview.emergentagent.com', 'localhost', '127.0.0.1', '.emergentagent.com'],
     hmr: {
       clientPort: 443,
     },
