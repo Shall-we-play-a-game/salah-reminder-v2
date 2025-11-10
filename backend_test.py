@@ -658,6 +658,13 @@ class SalahReminderAPITester:
         self.test_posts_search_functionality()
         self.test_posts_sort_functionality()
         
+        # Additional MVC endpoint tests
+        print("\n🔧 Testing Additional MVC Endpoints")
+        print("-" * 30)
+        self.test_user_favorites()
+        self.test_get_user_id_proof()
+        self.test_post_update_delete()
+        
         # Print summary
         print("\n" + "=" * 50)
         print(f"📊 Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
