@@ -179,3 +179,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Phase 1 implementation complete. Added search and sort UI for mosques in HomePage and posts in CommunityFeed. Backend endpoints already support these features. Ready for backend testing first, then frontend testing. Screenshots show UI is rendering correctly."
+  - agent: "testing"
+    message: "Backend testing completed successfully. Both mosque and post search/sort APIs are fully functional. Discovered backend is Node.js (server.js) not Python (server.py). All search and sort functionality working perfectly: mosque search by name, sort by name/city/country; post search by title, sort by created_at/title/event_start_date. Ready for main agent to summarize and finish - backend implementation is complete and working."
