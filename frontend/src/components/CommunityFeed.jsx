@@ -44,6 +44,13 @@ export default function CommunityFeed({ selectedMosque, mosqueData }) {
         params.country = mosqueData.country;
       }
       
+      // Add search and sort
+      if (searchQuery) params.search = searchQuery;
+      if (sortBy) {
+        params.sortBy = sortBy;
+        params.sortOrder = sortBy === 'title' ? 'asc' : 'desc';
+      }
+      
       const response = await axios.get(`${API}/posts`, { params });
       setPosts(response.data);
     } catch (error) {
