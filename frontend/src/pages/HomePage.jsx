@@ -70,7 +70,6 @@ const HomePage = () => {
   const [audio] = useState(() => new Audio(ringtones.adhan));
 
   useEffect(() => {
-    fetchMosques();
     checkNotificationPermission();
     
     // Load user from localStorage
@@ -95,6 +94,10 @@ const HomePage = () => {
     setSelectedRingtone(savedRingtone);
     audio.src = ringtones[savedRingtone];
   }, []);
+
+  useEffect(() => {
+    fetchMosques();
+  }, [mosqueSearch, mosqueSortBy]);
 
   useEffect(() => {
     if (selectedMosque) {
