@@ -11,8 +11,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://mosque-connect-11.preview.emergentagent.com';
 const API = `${BACKEND_URL}/api`;
+
+// Debug: Log API URL
+console.log('API URL:', API);
 
 const HomePage = () => {
   const [mosques, setMosques] = useState([]);
