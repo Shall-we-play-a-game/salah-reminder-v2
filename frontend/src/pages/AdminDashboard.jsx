@@ -294,7 +294,7 @@ const AdminDashboard = () => {
           <CardContent>
             <form onSubmit={handleCreatePost} className="space-y-4">
               <div>
-                <Label htmlFor="post-title">Title</Label>
+                <Label htmlFor="post-title">Title *</Label>
                 <Input
                   id="post-title"
                   value={postForm.title}
@@ -304,18 +304,75 @@ const AdminDashboard = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="post-content">Content</Label>
+                <Label htmlFor="post-scope">Scope *</Label>
+                <select
+                  id="post-scope"
+                  value={postForm.scope}
+                  onChange={(e) => setPostForm({ ...postForm, scope: e.target.value })}
+                  className="w-full p-2 border rounded-md"
+                  data-testid="post-scope-select"
+                >
+                  <option value="mosque">Mosque Level</option>
+                  <option value="city">City Level</option>
+                  <option value="country">Country Level</option>
+                </select>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="post-city">City</Label>
+                  <Input
+                    id="post-city"
+                    value={postForm.city}
+                    onChange={(e) => setPostForm({ ...postForm, city: e.target.value })}
+                    placeholder={mosque?.city || ''}
+                    data-testid="post-city-input"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="post-country">Country</Label>
+                  <Input
+                    id="post-country"
+                    value={postForm.country}
+                    onChange={(e) => setPostForm({ ...postForm, country: e.target.value })}
+                    placeholder={mosque?.country || ''}
+                    data-testid="post-country-input"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="event-start">Event Start Date</Label>
+                  <Input
+                    id="event-start"
+                    type="date"
+                    value={postForm.event_start_date}
+                    onChange={(e) => setPostForm({ ...postForm, event_start_date: e.target.value })}
+                    data-testid="event-start-input"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="event-end">Event End Date</Label>
+                  <Input
+                    id="event-end"
+                    type="date"
+                    value={postForm.event_end_date}
+                    onChange={(e) => setPostForm({ ...postForm, event_end_date: e.target.value })}
+                    data-testid="event-end-input"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="post-content">Content (optional if image provided)</Label>
                 <Textarea
                   id="post-content"
                   rows={4}
                   value={postForm.content}
                   onChange={(e) => setPostForm({ ...postForm, content: e.target.value })}
-                  required
                   data-testid="post-content-input"
                 />
               </div>
               <div>
-                <Label htmlFor="post-image">Image (Optional)</Label>
+                <Label htmlFor="post-image">Image (optional if content provided)</Label>
                 <Input
                   id="post-image"
                   type="file"
@@ -329,6 +386,9 @@ const AdminDashboard = () => {
                   </p>
                 )}
               </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                * Either content or image must be provided
+              </p>
               <Button type="submit" className="green-gradient text-white" data-testid="create-post-btn">
                 Create Post
               </Button>
