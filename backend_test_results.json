@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-11-10T16:21:53.672103",
+  "timestamp": "2025-11-10T16:22:20.124517",
   "total_tests": 29,
-  "passed_tests": 24,
-  "success_rate": 82.75862068965517,
+  "passed_tests": 29,
+  "success_rate": 100.0,
   "test_details": [
     {
       "name": "API Root",
@@ -36,8 +36,8 @@
     },
     {
       "name": "Admin Registration",
-      "success": false,
-      "details": "Status: 400 (Expected 200) | Error: All mosque fields are required for admin registration"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Get Pending Admins",
@@ -46,13 +46,13 @@
     },
     {
       "name": "Approve Admin",
-      "success": false,
-      "details": "No admin ID available"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Admin Login",
-      "success": false,
-      "details": "No admin user available"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Prayer Times API",
@@ -66,8 +66,8 @@
     },
     {
       "name": "Create Post",
-      "success": false,
-      "details": "No admin ID or mosque ID available"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Get Pending Posts",
@@ -76,8 +76,8 @@
     },
     {
       "name": "Approve Post",
-      "success": false,
-      "details": "No post ID available"
+      "success": true,
+      "details": "Status: 200"
     },
     {
       "name": "Get Approved Posts",
@@ -117,7 +117,7 @@
     {
       "name": "Mosque Sort Functionality",
       "success": true,
-      "details": "Sort working: ASC=Al-Noor Mosque, DESC=Masjid Al-Rahman"
+      "details": "Sort working: ASC=Al-Noor Mosque, DESC=Test Admin Mosque"
     },
     {
       "name": "Posts Search by Title - 'Test'",
@@ -132,7 +132,7 @@
     {
       "name": "Posts Search Functionality",
       "success": true,
-      "details": "Search working: found 3 results for 'Test', 0 for non-existent term"
+      "details": "Search working: found 4 results for 'Test', 0 for non-existent term"
     },
     {
       "name": "Posts Sort by Created Date ASC",
@@ -147,7 +147,7 @@
     {
       "name": "Posts Sort Functionality",
       "success": true,
-      "details": "Sort working: 3 posts sorted by date"
+      "details": "Sort working: 4 posts sorted by date"
     }
   ]
 }
