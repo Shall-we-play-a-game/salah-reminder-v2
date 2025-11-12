@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Complete search and sorting functionality for posts and mosques. Add search functionality to posts according to title and sorting. Add search in mosque and sorting according to city and search by name."
+user_problem_statement: "Test the new city-related features and improved mosque sorting after adding city database and API integrations."
 
 backend:
   - task: "Mosque search and sort API"
