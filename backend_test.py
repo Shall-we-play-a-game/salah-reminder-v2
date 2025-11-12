@@ -689,6 +689,181 @@ class SalahReminderAPITester:
         else:
             return success2
 
+    # ========== NEW CITY ENDPOINTS TESTS ==========
+    
+    def test_get_all_cities(self):
+        """Test GET /api/cities - Get all cities sorted A-Z"""
+        success, response = self.run_test(
+            "Get All Cities",
+            "GET",
+            "cities",
+            200
+        )
+        
+        if success and response:
+            city_count = len(response)
+            if city_count >= 50:
+                # Check if sorted alphabetically
+                city_names = [city['name'] for city in response]
+                is_sorted = city_names == sorted(city_names, key=str.lower)
+                
+                self.log_test("Cities Count Check", city_count >= 50, f"Found {city_count} cities (expected 50+)")
+                self.log_test("Cities Alphabetical Sort", is_sorted, f"First: {city_names[0]}, Last: {city_names[-1]}")
+                return city_count >= 50 and is_sorted
+            else:
+                self.log_test("Cities Count Check", False, f"Found only {city_count} cities (expected 50+)")
+                return False
+        return success
+
+    def test_city_search_by_name(self):
+        """Test GET /api/cities/search?name=London - Search cities by name"""
+        success, response = self.run_test(
+            "City Search by Name - London",
+            "GET",
+            "cities/search",
+            200,
+            params={"name": "London"}
+        )
+        
+        if success and response:
+            london_found = any(city['name'].lower() == 'london' for city in response)
+            self.log_test("London City Found", london_found, f"Found {len(response)} results")
+            return london_found
+        return success
+
+    def test_city_search_with_filters(self):
+        """Test GET /api/cities/search?name=Makkah&country=Saudi Arabia - Search with filters"""
+        success, response = self.run_test(
+            "City Search with Filters - Makkah, Saudi Arabia",
+            "GET",
+            "cities/search",
+            200,
+            params={"name": "Makkah", "country": "Saudi Arabia"}
+        )
+        
+        if success and response:
+            makkah_found = any(
+                city['name'].lower() == 'makkah' and 'saudi' in city['country'].lower() 
+                for city in response
+            )
+            self.log_test("Makkah in Saudi Arabia Found", makkah_found, f"Found {len(response)} results")
+            return makkah_found
+        return success
+
+    def test_cities_by_country(self):
+        """Test GET /api/cities/country/Pakistan - Get cities by country name"""
+        success, response = self.run_test(
+            "Cities by Country - Pakistan",
+            "GET",
+            "cities/country/Pakistan",
+            200
+        )
+        
+        if success and response:
+            all_pakistan = all('pakistan' in city['country'].lower() for city in response)
+            pakistan_cities = [city['name'] for city in response]
+            self.log_test("Pakistan Cities Filter", all_pakistan, f"Cities: {', '.join(pakistan_cities)}")
+            return all_pakistan and len(response) > 0
+        return success
+
+    # ========== IMPROVED MOSQUE SORTING TESTS ==========
+    
+    def test_mosque_collation_sorting(self):
+        """Test case-insensitive mosque sorting with collation"""
+        success1, asc_result = self.run_test(
+            "Mosque Sort Case-Insensitive ASC",
+            "GET",
+            "mosques",
+            200,
+            params={"sortBy": "city", "sortOrder": "asc"}
+        )
+        
+        if not success1:
+            return False
+            
+        success2, desc_result = self.run_test(
+            "Mosque Sort Case-Insensitive DESC", 
+            "GET",
+            "mosques",
+            200,
+            params={"sortBy": "city", "sortOrder": "desc"}
+        )
+        
+        if success2 and len(asc_result) > 1:
+            cities_asc = [mosque['city'] for mosque in asc_result]
+            cities_desc = [mosque['city'] for mosque in desc_result]
+            
+            # Check if case-insensitive sorting is working
+            is_case_insensitive_asc = cities_asc == sorted(cities_asc, key=str.lower)
+            is_case_insensitive_desc = cities_desc == sorted(cities_asc, key=str.lower, reverse=True)
+            
+            self.log_test("Case-Insensitive Collation", is_case_insensitive_asc and is_case_insensitive_desc, 
+                         f"ASC working: {is_case_insensitive_asc}, DESC working: {is_case_insensitive_desc}")
+            return is_case_insensitive_asc and is_case_insensitive_desc
+        return success2
+
+    def test_mosque_city_filter(self):
+        """Test GET /api/mosques?city=New York - Test city filter"""
+        success, response = self.run_test(
+            "Mosque Filter by City - New York",
+            "GET", 
+            "mosques",
+            200,
+            params={"city": "New York"}
+        )
+        
+        if success and response:
+            all_ny = all('new york' in mosque['city'].lower() for mosque in response)
+            self.log_test("New York City Filter", all_ny, f"Found {len(response)} mosques in New York")
+            return all_ny
+        return success
+
+    # ========== EXTERNAL API ENDPOINTS TESTS ==========
+    
+    def test_api_status_endpoint(self):
+        """Test GET /api/mosques/api-status - Check API configuration status"""
+        success, response = self.run_test(
+            "API Status Check",
+            "GET",
+            "mosques/api-status",
+            200
+        )
+        
+        if success and response:
+            has_masjidi_status = 'masjidiAPI' in response
+            is_configured = response.get('masjidiAPI', {}).get('configured', False)
+            message = response.get('masjidiAPI', {}).get('message', '')
+            
+            self.log_test("API Status Structure", has_masjidi_status, f"MasjidiAPI status present")
+            self.log_test("API Configuration", True, f"Configured: {is_configured}, Message: {message}")
+            return has_masjidi_status
+        return success
+
+    def test_external_search_no_api_key(self):
+        """Test GET /api/mosques/search-external - Should return error (no API key configured)"""
+        success, response = self.run_test(
+            "External Search Without API Key",
+            "GET",
+            "mosques/search-external",
+            503,  # Expecting 503 Service Unavailable
+            params={"lat": "40.7128", "lng": "-74.0060"}
+        )
+        
+        # For this test, success means we got the expected 503 error
+        return success
+
+    def test_external_search_missing_params(self):
+        """Test external search with missing required parameters"""
+        success, response = self.run_test(
+            "External Search Missing Parameters",
+            "GET",
+            "mosques/search-external",
+            400,  # Expecting 400 Bad Request
+            params={"lat": "40.7128"}  # Missing lng parameter
+        )
+        
+        return success
+
     def run_all_tests(self):
         """Run all API tests in sequence"""
         print("🚀 Starting Salah Reminder API Tests")
