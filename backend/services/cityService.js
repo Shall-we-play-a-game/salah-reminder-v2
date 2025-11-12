@@ -21,6 +21,9 @@ export const searchCities = async ({ name, country, limit = 30 }) => {
     if (country) params.country = country;
     params.limit = Math.min(limit, 30); // API Ninjas max is 30
 
+    console.log('Calling API Ninjas with params:', params);
+    console.log('API Key configured:', API_NINJAS_KEY ? 'Yes' : 'No');
+
     const response = await axios.get(`${API_NINJAS_BASE_URL}/city`, {
       params,
       headers: {
@@ -31,6 +34,10 @@ export const searchCities = async ({ name, country, limit = 30 }) => {
     return response.data;
   } catch (error) {
     console.error('City API Error:', error.message);
+    if (error.response) {
+      console.error('API Response Status:', error.response.status);
+      console.error('API Response Data:', error.response.data);
+    }
     throw new Error('Failed to fetch cities from API');
   }
 };
