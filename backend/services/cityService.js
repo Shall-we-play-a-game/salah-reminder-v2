@@ -14,15 +14,12 @@ const API_NINJAS_BASE_URL = 'https://api.api-ninjas.com/v1';
  * @param {number} params.limit - Number of results (default 30, max 30)
  * @returns {Promise<Array>} Array of city objects
  */
-export const searchCities = async ({ name, country, limit = 30 }) => {
+export const searchCities = async ({ name, country, limit = 1 }) => {
   try {
     const params = {};
     if (name) params.name = name;
     if (country) params.country = country;
-    params.limit = Math.min(limit, 30); // API Ninjas max is 30
-
-    console.log('Calling API Ninjas with params:', params);
-    console.log('API Key configured:', API_NINJAS_KEY ? 'Yes' : 'No');
+    // Note: limit parameter is for premium subscribers only, so we don't include it
 
     const response = await axios.get(`${API_NINJAS_BASE_URL}/city`, {
       params,
@@ -31,7 +28,10 @@ export const searchCities = async ({ name, country, limit = 30 }) => {
       }
     });
 
-    return response.data;
+    // Free tier returns max 1 result per request
+    // We can slice the results if needed
+    const results = response.data;
+    return Array.isArray(results) ? results.slice(0, Math.min(limit, 1)) : results;
   } catch (error) {
     console.error('City API Error:', error.message);
     if (error.response) {
