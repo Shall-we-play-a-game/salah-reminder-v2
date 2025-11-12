@@ -1,10 +1,10 @@
 import express from 'express';
-import { search, popular, byCountry } from '../controllers/cityController.js';
+import { search, getAll, byCountry } from '../controllers/cityController.js';
 
 const router = express.Router();
 
+router.get('/', getAll);
 router.get('/search', search);
-router.get('/popular', popular);
-router.get('/country/:countryCode', byCountry);
+router.get('/country/:countryName', byCountry);
 
 export default router;
