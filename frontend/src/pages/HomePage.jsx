@@ -97,8 +97,13 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    fetchCities();
     fetchMosques();
-  }, [mosqueSearch, mosqueSortBy]);
+  }, []);
+
+  useEffect(() => {
+    fetchMosques();
+  }, [mosqueSearch, selectedCity]);
 
   useEffect(() => {
     if (selectedMosque) {
