@@ -85,3 +85,58 @@ export const uploadDonationQR = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+/**
+ * Search mosques from external API (MasjidiAPI)
+ * GET /api/mosques/search-external?lat=40.7128&lng=-74.0060&radius=10
+ */
+export const searchExternal = async (req, res) => {
+  try {
+    const { lat, lng, radius } = req.query;
+
+    if (!lat || !lng) {
+      return res.status(400).json({ detail: 'Latitude and longitude are required' });
+    }
+
+    // Check if external API is available
+    if (!isMasjidiAPIAvailable()) {
+      return res.status(503).json({ 
+        detail: 'External mosque API not configured. Contact support to set up MasjidiAPI integration.',
+        configured: false
+      });
+    }
+
+    const mosques = await searchMosquesFromAPI({
+      latitude: parseFloat(lat),
+      longitude: parseFloat(lng),
+      radius: radius ? parseFloat(radius) : 10
+    });
+
+    res.json({
+      source: 'MasjidiAPI',
+      count: mosques.length,
+      mosques
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Get API status
+ * GET /api/mosques/api-status
+ */
+export const getApiStatus = async (req, res) => {
+  try {
+    res.json({
+      masjidiAPI: {
+        configured: isMasjidiAPIAvailable(),
+        message: isMasjidiAPIAvailable() 
+          ? 'MasjidiAPI is configured and ready' 
+          : 'MasjidiAPI not configured. Add MASJIDI_API_KEY to .env file'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
