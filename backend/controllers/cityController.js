@@ -31,12 +31,25 @@ export const search = async (req, res) => {
 };
 
 /**
- * Get popular cities worldwide
- * GET /api/cities/popular
+ * Get all cities (optionally sorted)
+ * GET /api/cities?sortBy=name&sortOrder=asc
  */
-export const popular = async (req, res) => {
+export const getAll = async (req, res) => {
   try {
-    const cities = await getPopularCities();
+    const { sortBy, sortOrder } = req.query;
+    
+    const sort = {};
+    if (sortBy) {
+      sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    } else {
+      sort.name = 1;
+    }
+
+    const cities = await City
+      .find({}, { _id: 0, __v: 0 })
+      .sort(sort)
+      .collation({ locale: 'en', strength: 2 });
+
     res.json(cities);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -45,17 +58,21 @@ export const popular = async (req, res) => {
 
 /**
  * Get cities by country
- * GET /api/cities/country/:countryCode
+ * GET /api/cities/country/:countryName
  */
 export const byCountry = async (req, res) => {
   try {
-    const { countryCode } = req.params;
+    const { countryName } = req.params;
 
-    if (!countryCode) {
-      return res.status(400).json({ detail: 'Country code is required' });
+    if (!countryName) {
+      return res.status(400).json({ detail: 'Country name is required' });
     }
 
-    const cities = await getCitiesByCountry(countryCode);
+    const cities = await City
+      .find({ country: { $regex: countryName, $options: 'i' } }, { _id: 0, __v: 0 })
+      .sort({ name: 1 })
+      .collation({ locale: 'en', strength: 2 });
+
     res.json(cities);
   } catch (error) {
     res.status(500).json({ error: error.message });
