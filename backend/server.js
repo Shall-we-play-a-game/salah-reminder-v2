@@ -9,6 +9,7 @@ import mosqueRoutes from './routes/mosqueRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import prayerTimeRoutes from './routes/prayerTimeRoutes.js';
 import postRoutes from './routes/postRoutes.js';
+import cityRoutes from './routes/cityRoutes.js';
 
 dotenv.config();
 
