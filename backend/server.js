@@ -37,6 +37,7 @@ app.use('/api/mosques', mosqueRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/prayer-times', prayerTimeRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/cities', cityRoutes);
 
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
