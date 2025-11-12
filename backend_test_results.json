@@ -1,7 +1,7 @@
 {
-  "timestamp": "2025-11-10T16:23:47.828196",
-  "total_tests": 44,
-  "passed_tests": 44,
+  "timestamp": "2025-11-12T14:14:57.822109",
+  "total_tests": 63,
+  "passed_tests": 63,
   "success_rate": 100.0,
   "test_details": [
     {
@@ -223,6 +223,101 @@
       "name": "Mosque City Sort",
       "success": true,
       "details": "ASC: Chicago, DESC: Test City"
+    },
+    {
+      "name": "Get All Cities",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Cities Count Check",
+      "success": true,
+      "details": "Found 50 cities (expected 50+)"
+    },
+    {
+      "name": "Cities Alphabetical Sort",
+      "success": true,
+      "details": "First: Abu Dhabi, Last: Tunis"
+    },
+    {
+      "name": "City Search by Name - London",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "London City Found",
+      "success": true,
+      "details": "Found 1 results"
+    },
+    {
+      "name": "City Search with Filters - Makkah, Saudi Arabia",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Makkah in Saudi Arabia Found",
+      "success": true,
+      "details": "Found 1 results"
+    },
+    {
+      "name": "Cities by Country - Pakistan",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Pakistan Cities Filter",
+      "success": true,
+      "details": "Cities: Islamabad, Karachi, Lahore"
+    },
+    {
+      "name": "Mosque Sort Case-Insensitive ASC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Mosque Sort Case-Insensitive DESC",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "Case-Insensitive Collation",
+      "success": true,
+      "details": "ASC working: True, DESC working: True"
+    },
+    {
+      "name": "Mosque Filter by City - New York",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "New York City Filter",
+      "success": true,
+      "details": "Found 1 mosques in New York"
+    },
+    {
+      "name": "API Status Check",
+      "success": true,
+      "details": "Status: 200"
+    },
+    {
+      "name": "API Status Structure",
+      "success": true,
+      "details": "MasjidiAPI status present"
+    },
+    {
+      "name": "API Configuration",
+      "success": true,
+      "details": "Configured: , Message: MasjidiAPI not configured. Add MASJIDI_API_KEY to .env file"
+    },
+    {
+      "name": "External Search Without API Key",
+      "success": true,
+      "details": "Status: 503"
+    },
+    {
+      "name": "External Search Missing Parameters",
+      "success": true,
+      "details": "Status: 400"
     }
   ]
 }
