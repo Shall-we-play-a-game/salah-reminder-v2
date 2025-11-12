@@ -130,12 +130,13 @@ const HomePage = () => {
 
   const fetchMosques = async () => {
     try {
-      const params = {};
+      const params = {
+        sortBy: 'name',
+        sortOrder: 'asc'
+      };
+      
       if (mosqueSearch) params.search = mosqueSearch;
-      if (mosqueSortBy) {
-        params.sortBy = mosqueSortBy;
-        params.sortOrder = 'asc';
-      }
+      if (selectedCity && selectedCity !== 'all') params.city = selectedCity;
       
       const response = await axios.get(`${API}/mosques`, { params });
       const data = response.data;
@@ -155,6 +156,17 @@ const HomePage = () => {
       console.error('Error fetching mosques:', error);
       setMosques([]);
       toast.error('Failed to connect to server. Please check your connection.');
+    }
+  };
+
+  const fetchCities = async () => {
+    try {
+      const response = await axios.get(`${API}/cities`);
+      if (Array.isArray(response.data)) {
+        setCities(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching cities:', error);
     }
   };
 
