@@ -40,7 +40,8 @@ const HomePage = () => {
   const [selectedRingtone, setSelectedRingtone] = useState('adhan');
   const [showSettings, setShowSettings] = useState(false);
   const [mosqueSearch, setMosqueSearch] = useState('');
-  const [mosqueSortBy, setMosqueSortBy] = useState('name');
+  const [selectedCity, setSelectedCity] = useState('all');
+  const [cities, setCities] = useState([]);
   const [registerForm, setRegisterForm] = useState({
     email: '',
     password: '',
