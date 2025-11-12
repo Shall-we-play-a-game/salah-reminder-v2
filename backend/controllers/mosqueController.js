@@ -1,9 +1,10 @@
 import Mosque from '../models/Mosque.js';
 import { generateId } from '../utils/helpers.js';
+import { searchMosquesFromAPI, isMasjidiAPIAvailable } from '../services/mosqueApiService.js';
 
 export const getAllMosques = async (req, res) => {
   try {
-    const { search, sortBy, sortOrder } = req.query;
+    const { search, sortBy, sortOrder, city } = req.query;
     let query = {};
     
     // Search by name
@@ -11,7 +12,12 @@ export const getAllMosques = async (req, res) => {
       query.name = { $regex: search, $options: 'i' };
     }
     
-    // Build sort object
+    // Filter by city
+    if (city) {
+      query.city = { $regex: city, $options: 'i' };
+    }
+    
+    // Build sort object with proper collation for case-insensitive sorting
     let sort = {};
     if (sortBy) {
       sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
@@ -19,7 +25,12 @@ export const getAllMosques = async (req, res) => {
       sort.name = 1; // Default sort by name ascending
     }
     
-    const mosques = await Mosque.find(query, { _id: 0, __v: 0 }).sort(sort);
+    // Use collation for proper alphabetical sorting (case-insensitive)
+    const mosques = await Mosque
+      .find(query, { _id: 0, __v: 0 })
+      .sort(sort)
+      .collation({ locale: 'en', strength: 2 }); // Case-insensitive sorting
+    
     res.json(mosques);
   } catch (error) {
     res.status(500).json({ error: error.message });
