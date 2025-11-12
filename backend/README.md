@@ -51,10 +51,17 @@ backend/
 - `POST /api/auth/login` - User login
 
 ### Mosques (`/api/mosques`)
-- `GET /api/mosques` - Get all mosques (supports search & sort)
+- `GET /api/mosques` - Get all mosques (supports search, sort & city filter)
+- `GET /api/mosques/search-external?lat=&lng=&radius=` - Search mosques from external API (MasjidiAPI)
+- `GET /api/mosques/api-status` - Check external API configuration status
 - `GET /api/mosques/:mosque_id` - Get specific mosque
 - `POST /api/mosques` - Create new mosque
 - `POST /api/mosques/:mosque_id/donation-qr` - Upload donation QR code
+
+### Cities (`/api/cities`) **NEW**
+- `GET /api/cities` - Get all cities (sorted A-Z by default)
+- `GET /api/cities/search?name=cityname&country=countryname` - Search cities
+- `GET /api/cities/country/:countryName` - Get cities by country
 
 ### Users (`/api/users`)
 - `GET /api/users/pending` - Get pending admin approvals
