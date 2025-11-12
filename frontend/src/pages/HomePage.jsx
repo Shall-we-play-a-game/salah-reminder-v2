@@ -499,53 +499,65 @@ const HomePage = () => {
               )}
             </div>
             
-            {/* Search and Sort Controls */}
+            {/* Search and Filter Controls */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
                   Search by Name:
                 </Label>
-                <div className="relative">
-                  <Input
-                    type="text"
-                    placeholder="Search mosques..."
-                    value={mosqueSearch}
-                    onChange={(e) => setMosqueSearch(e.target.value)}
-                    className="w-full"
-                    data-testid="mosque-search-input"
-                  />
-                </div>
+                <Input
+                  type="text"
+                  placeholder="Type to search mosques..."
+                  value={mosqueSearch}
+                  onChange={(e) => setMosqueSearch(e.target.value)}
+                  className="w-full"
+                  data-testid="mosque-search-input"
+                />
               </div>
               
               <div>
                 <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
-                  Sort by:
+                  Filter by City:
                 </Label>
-                <Select value={mosqueSortBy} onValueChange={setMosqueSortBy} data-testid="mosque-sort-select">
+                <Select value={selectedCity} onValueChange={setSelectedCity} data-testid="city-filter-select">
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue placeholder="Select city" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="name">Name (A-Z)</SelectItem>
-                    <SelectItem value="city">City (A-Z)</SelectItem>
-                    <SelectItem value="country">Country (A-Z)</SelectItem>
+                    <SelectItem value="all">All Cities</SelectItem>
+                    {cities.map((city) => (
+                      <SelectItem key={city.id} value={city.name}>
+                        {city.name}, {city.country}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
             </div>
             
-            <Select value={selectedMosque} onValueChange={setSelectedMosque}>
-              <SelectTrigger className="w-full" data-testid="mosque-select">
-                <SelectValue placeholder="Choose a mosque" />
-              </SelectTrigger>
-              <SelectContent>
-                {mosques.map((mosque) => (
-                  <SelectItem key={mosque.id} value={mosque.id} data-testid={`mosque-option-${mosque.id}`}>
-                    {mosque.name} - {mosque.city}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div>
+              <Label className="text-sm font-medium text-emerald-800 dark:text-emerald-400 mb-2 block">
+                Select Mosque:
+              </Label>
+              <Select value={selectedMosque} onValueChange={setSelectedMosque}>
+                <SelectTrigger className="w-full" data-testid="mosque-select">
+                  <SelectValue placeholder="Choose a mosque" />
+                </SelectTrigger>
+                <SelectContent>
+                  {mosques.length > 0 ? (
+                    mosques.map((mosque) => (
+                      <SelectItem key={mosque.id} value={mosque.id} data-testid={`mosque-option-${mosque.id}`}>
+                        {mosque.name} - {mosque.city}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <div className="p-4 text-center text-gray-500">
+                      {mosqueSearch || selectedCity !== 'all' ? 'No mosques found' : 'Loading mosques...'}
+                    </div>
+                  )}
+                </SelectContent>
+              </Select>
+            </div>
             {selectedMosqueData && (
               <div className="mt-3 space-y-1">
                 <p className="text-sm text-gray-600">
