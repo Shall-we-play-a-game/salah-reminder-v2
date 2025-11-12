@@ -177,6 +177,42 @@ backend:
         agent: "testing"
         comment: "MVC REFACTORING VERIFIED: All prayer time endpoints working perfectly. GET /api/prayer-times/:mosque_id with date parameter working (integrates with Aladhan API). POST /api/prayer-times for manual prayer time setting working. API integration and manual override functionality both tested successfully."
 
+  - task: "City Endpoints Implementation"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/cityRoutes.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "CITY FEATURES TESTED: All city endpoints working perfectly. GET /api/cities returns 50+ cities sorted A-Z with proper collation. GET /api/cities/search?name=London works (found 1 result). GET /api/cities/search?name=Makkah&country=Saudi Arabia with filters works (found 1 result). GET /api/cities/country/Pakistan returns 3 cities (Islamabad, Karachi, Lahore). Case-insensitive sorting with collation working correctly."
+
+  - task: "Improved Mosque Sorting with Collation"
+    implemented: true
+    working: true
+    file: "/app/backend/controllers/mosqueController.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "IMPROVED SORTING TESTED: Mosque sorting with collation working perfectly. GET /api/mosques?sortBy=city&sortOrder=asc/desc with case-insensitive alphabetical sorting verified. GET /api/mosques?city=New York filter working (found 1 mosque). Collation ensures proper alphabetical ordering regardless of case. All sorting parameters (sortBy=name/city, sortOrder=asc/desc) working correctly."
+
+  - task: "External API Endpoints"
+    implemented: true
+    working: true
+    file: "/app/backend/services/mosqueApiService.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "EXTERNAL API TESTED: All external API endpoints working as expected. GET /api/mosques/api-status returns proper configuration status (MasjidiAPI not configured message). GET /api/mosques/search-external?lat=40.7128&lng=-74.0060 correctly returns 503 error when API key not configured. Missing parameter validation working (returns 400 for missing lng). Graceful fallback behavior implemented correctly."
+
 frontend:
   - task: "Mosque search and sort UI"
     implemented: true
