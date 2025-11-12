@@ -918,6 +918,27 @@ class SalahReminderAPITester:
         self.test_advanced_post_filtering()
         self.test_mosque_sort_by_city()
         
+        # NEW CITY FEATURES TESTS
+        print("\n🏙️ Testing New City Features")
+        print("-" * 30)
+        self.test_get_all_cities()
+        self.test_city_search_by_name()
+        self.test_city_search_with_filters()
+        self.test_cities_by_country()
+        
+        # IMPROVED MOSQUE SORTING TESTS
+        print("\n🕌 Testing Improved Mosque Sorting")
+        print("-" * 30)
+        self.test_mosque_collation_sorting()
+        self.test_mosque_city_filter()
+        
+        # EXTERNAL API TESTS
+        print("\n🌐 Testing External API Endpoints")
+        print("-" * 30)
+        self.test_api_status_endpoint()
+        self.test_external_search_no_api_key()
+        self.test_external_search_missing_params()
+        
         # Print summary
         print("\n" + "=" * 50)
         print(f"📊 Test Summary: {self.tests_passed}/{self.tests_run} tests passed")
