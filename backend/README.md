@@ -85,12 +85,26 @@ backend/
 
 ## Features
 
-### Search & Sort
-- **Mosques**: Search by name, sort by name/city/country
+### Search & Sort with Proper Collation
+- **Mosques**: Search by name, sort by name/city/country with case-insensitive alphabetical sorting
 - **Posts**: Search by title, sort by created_at/title/event_start_date
+- **Cities**: Search by name/country, properly sorted A-Z
+
+### City Database
+- **50+ major cities** worldwide seeded in database
+- Focus on Islamic countries and major metropolitan areas
+- Includes coordinates, population, capital status
+- Searchable and sortable
+- Run `node seeds/seedCities.js` to reseed
+
+### External API Integrations (Prepared)
+- **API Ninjas City API**: City search capability (currently using seeded database)
+- **MasjidiAPI**: Ready for mosque listing integration (requires API key)
+- Check `/api/mosques/api-status` endpoint for configuration status
 
 ### Advanced Filtering
 - **Posts**: Filter by scope (mosque/city/country), status, city, country
+- **Mosques**: Filter by city
 
 ### File Uploads
 - ID proof for admin registration
@@ -107,7 +121,26 @@ backend/
 ```
 MONGO_URL=mongodb://localhost:27017
 DB_NAME=test_database
+
+# API Keys (Optional - for external integrations)
+API_NINJAS_KEY=your_api_key_here
+MASJIDI_API_KEY=your_api_key_here
 ```
+
+### Getting API Keys
+
+**API Ninjas (Cities API)**:
+1. Visit https://api-ninjas.com
+2. Sign up for free account
+3. Get API key from dashboard
+4. Free tier: 50,000 requests/month
+5. Note: Free tier has limited features (1 result per query)
+
+**MasjidiAPI (Mosque Listings)**:
+1. Visit https://github.com/MasjidiApp/MasjidiAPI
+2. Contact via WhatsApp: +1 (530) 508-6624
+3. Request API key for test/production
+4. Documentation: https://api.masjidiapp.com/docs
 
 ## Running the Application
 
