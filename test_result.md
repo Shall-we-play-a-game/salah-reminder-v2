@@ -252,7 +252,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "MVC Refactoring Verification Complete"
+    - "City Features Testing Complete"
+    - "Improved Mosque Sorting Testing Complete"
+    - "External API Testing Complete"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
