@@ -1,22 +1,28 @@
-import { searchCities, getPopularCities, getCitiesByCountry } from '../services/cityService.js';
+import City from '../models/City.js';
 
 /**
  * Search cities by name
- * GET /api/cities/search?name=cityname&country=US&limit=10
+ * GET /api/cities/search?name=cityname&country=US&limit=50
  */
 export const search = async (req, res) => {
   try {
     const { name, country, limit } = req.query;
-
-    if (!name) {
-      return res.status(400).json({ detail: 'City name is required' });
+    
+    const query = {};
+    
+    if (name) {
+      query.name = { $regex: name, $options: 'i' };
+    }
+    
+    if (country) {
+      query.country = { $regex: country, $options: 'i' };
     }
 
-    const cities = await searchCities({ 
-      name, 
-      country, 
-      limit: parseInt(limit) || 30 
-    });
+    const cities = await City
+      .find(query, { _id: 0, __v: 0 })
+      .sort({ name: 1 })
+      .limit(parseInt(limit) || 50)
+      .collation({ locale: 'en', strength: 2 });
 
     res.json(cities);
   } catch (error) {
