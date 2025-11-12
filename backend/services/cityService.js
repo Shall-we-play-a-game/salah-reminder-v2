@@ -113,7 +113,7 @@ export const getPopularCities = async () => {
 export const getCitiesByCountry = async (country) => {
   try {
     const response = await axios.get(`${API_NINJAS_BASE_URL}/city`, {
-      params: { country, limit: 30 },
+      params: { country },
       headers: {
         'X-Api-Key': API_NINJAS_KEY
       }
